@@ -1,7 +1,7 @@
 ﻿namespace PhotoShare.LogicService
 {
     /// <summary>
-    ///     ccd
+    ///     проверка
     ///     папка для классов, реализующие репозитории. референс на нижний (3)
     /// </summary>
     public class Class1
