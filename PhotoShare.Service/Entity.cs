@@ -1,9 +1,12 @@
-﻿namespace PhotoShare.Service
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PhotoShare.Service
 {
     /// <summary>
     ///     папка для ef. папка для доменной модели (сущностей). папка репозиториев.
     /// </summary>
-    public class Class1
+    public class Entity
     {
+        [Key] private int ID;
     }
 }
