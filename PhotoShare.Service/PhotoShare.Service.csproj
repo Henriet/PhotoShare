@@ -46,12 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Administrator.cs" />
-    <Compile Include="AuthorizedUser.cs" />
-    <Compile Include="Comment.cs" />
-    <Compile Include="Entity.cs" />
-    <Compile Include="Guest.cs" />
-    <Compile Include="Photo.cs" />
+    <Compile Include="Entities\Administrator.cs" />
+    <Compile Include="Entities\AuthorizedUser.cs" />
+    <Compile Include="Entities\Comment.cs" />
+    <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Entities\Guest.cs" />
+    <Compile Include="Entities\Photo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
