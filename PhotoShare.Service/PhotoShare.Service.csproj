@@ -48,8 +48,10 @@
   <ItemGroup>
     <Compile Include="Administrator.cs" />
     <Compile Include="AuthorizedUser.cs" />
+    <Compile Include="Comment.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="Guest.cs" />
+    <Compile Include="Photo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

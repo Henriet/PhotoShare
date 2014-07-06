@@ -11,7 +11,7 @@ namespace PhotoShare.Service
         public Administrator(string name, string surname, string email, string password)
             : base(name, surname, email, password)
         {
-            confirmPassword = true;
+            ConfirmPassword = true;
         }
     }
 }
