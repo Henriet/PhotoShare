@@ -31,6 +31,7 @@ namespace PhotoShare.LogicService
         void DeletePhoto(int id);
         Photo GetPhotoById(int id);
         List<Photo> GetAllPhotos();
+        Photo EditDescription(string text, int id);
 
     }
 }

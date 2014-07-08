@@ -340,6 +340,21 @@ namespace PhotoShare.LogicService
             }
         }
 
+        public Photo EditDescription(string text, int id)
+        {
+            try
+            {
+                var photo = PhotoRepository.GetById(id);
+                photo.Description = text;
+                PhotoRepository.Update(photo);
+                return photo;
+            }
+            catch (Exception)
+            {
+                throw new Exception("Error in BL while attempts to edit description");
+            }
+        }
+
         #endregion Photo
     }
 }

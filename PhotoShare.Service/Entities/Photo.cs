@@ -13,5 +13,6 @@ namespace PhotoShare.Service
         public int UserId { get; private set; }
         public List<Comment> Comments { get; set; } 
         public byte[] Image { get; private set; }
+        public string Description { get; set; }
     }
 }
