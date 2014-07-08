@@ -1,4 +1,7 @@
-﻿namespace PhotoShare.Service
+﻿using System.Collections.Generic;
+using PhotoShare.Service.Entities;
+
+namespace PhotoShare.Service
 {
     public class AuthorizedUser : Guest
     {
@@ -7,6 +10,7 @@
         public string Email { get; set; }
         public string Password { get; set; }
         public bool ConfirmPassword { get; set; }
+        public List<AuthorizedUser> Friends { get; set; } 
         
 
         public AuthorizedUser(string name, string surname, string email, string password)

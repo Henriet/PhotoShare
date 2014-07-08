@@ -1,6 +1,7 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
-namespace PhotoShare.Service
+namespace PhotoShare.Service.Entities
 {
     public class Comment : Entity
     {
@@ -10,7 +11,7 @@ namespace PhotoShare.Service
             CommentOwner = ownerComment;
             Date = DateTime.Now;
         }
-        public string CommentText { get; private set; }
+        public string CommentText { get; set; }
         public AuthorizedUser CommentOwner { get; private set; }
         public DateTime Date { get; private set; }
     }

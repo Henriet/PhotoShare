@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using PhotoShare.Service.Entities;
 
 namespace PhotoShare.Service
 {
