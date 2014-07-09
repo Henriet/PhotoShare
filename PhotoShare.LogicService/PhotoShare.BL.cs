@@ -214,7 +214,68 @@ namespace PhotoShare.LogicService
                 throw new Exception("Error in BL while attempts to confirm password"); 
             }
         }
-        
+
+        public List<Photo> GetUserPhotos(int id)
+        {
+            try
+            {
+                var user = AuthorizedUserRepository.GetById(id);
+                var photos = user.Photos;
+                return photos;
+            }
+            catch (Exception)
+            {
+                throw new Exception("Error in BL while attempts to get all user's photos"); 
+            }
+        }
+
+        public List<Photo> AddUserPhoto(int id, Photo photo)
+        {
+            try
+            {
+                var user = AuthorizedUserRepository.GetById(id);
+                var photos = user.Photos;
+                photos.Add(photo);
+                AuthorizedUserRepository.Update(user);
+                return photos;
+            }
+            catch (Exception)
+            {
+                throw new Exception("Error in BL while attempts to add user's photo");
+            }
+        }
+
+        public List<Photo> DeleteUserPhoto(int id, Photo photo)
+        {
+            try
+            {
+                var user = AuthorizedUserRepository.GetById(id);
+                var photos = user.Photos;
+                if (photos.Contains(photo))
+                        photos.Remove(photo);
+                return photos;
+            }
+            catch (Exception)
+            {
+                throw new Exception("Error in BL while attempts to delete user's photo");
+            }
+        }
+
+        public AuthorizedUser ChangeAvatar(int id, Photo photo)
+        {
+            try
+            {
+                var user = AuthorizedUserRepository.GetById(id);
+                user.Avatar = photo;
+                AuthorizedUserRepository.Update(user);
+                return user;
+            }
+            catch (Exception)
+            {
+                throw new Exception("Error in BL while attempts to change avatar");
+            }
+        }
+
         #endregion AuthorizedUser
 
         #region Comment

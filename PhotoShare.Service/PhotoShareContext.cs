@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using PhotoShare.Service.Entities;
 
 namespace PhotoShare.Service
 {
