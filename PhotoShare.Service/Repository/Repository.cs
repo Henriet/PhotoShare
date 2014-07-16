@@ -22,6 +22,7 @@ namespace PhotoShare.Service.Repository
         public IQueryable<T> GetAll()
         {
             return Entities.AsQueryable();
+            
         }
 
         public T GetById(object id)
@@ -32,6 +33,7 @@ namespace PhotoShare.Service.Repository
         public void Insert(T entity)
         {
             Entities.Add(entity);
+            _context.SaveChanges();
         }
 
         public void Update(T entity)
@@ -44,7 +46,9 @@ namespace PhotoShare.Service.Repository
 
         public void Delete(T entity)
         {
+            
             Entities.Remove(entity);
+            _context.SaveChanges();
         }
 
         public void Dispose()

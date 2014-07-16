@@ -6,13 +6,13 @@ namespace PhotoShare.LogicService
 {
     interface IPhotoShareBl
     {
-        Administrator CreateAdministrator(string name, string surname, string email, string password);
+        int CreateAdministrator(string name, string surname, string email, string password);
         void DeleteAdministrator(int id);
         Administrator GetAdministratorById(int id);
         Administrator UpdateAdministrator(int id, string name, string surname, string email, string password);
         List<Administrator> GetAllAdministrators();
 
-        AuthorizedUser CreateAuthorizedUser(string name, string surname, string email, string password);
+        int CreateAuthorizedUser(string name, string surname, string email, string password);
         void DeleteAuthorizedUser(int id);
         AuthorizedUser GetAuthorizedUserById(int id);
         AuthorizedUser UpdateAuthorizedUser(int id, string name, string surname, string email, string password);
@@ -25,13 +25,13 @@ namespace PhotoShare.LogicService
         List<Photo> DeleteUserPhoto(int id, Photo photo);
         AuthorizedUser ChangeAvatar(int id, Photo photo);
             
-        Comment CreateComment(string text, AuthorizedUser ownerComment);
+        int CreateComment(string text, AuthorizedUser ownerComment);
         void DeleteComment(int id);
         Comment GetCommentById(int id);
         Comment UpdateComment(int id, string text);
         List<Comment> GetAllComments();
 
-        Photo CreatePhoto(int userId, byte[] image);
+        int CreatePhoto(int userId, byte[] image);
         void DeletePhoto(int id);
         Photo GetPhotoById(int id);
         List<Photo> GetAllPhotos();

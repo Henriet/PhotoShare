@@ -217,6 +217,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Administrator.cs" />
+    <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\Photo.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Shared.en.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -225,6 +229,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -290,6 +295,18 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="Images\1.jpg" />
+    <Content Include="Images\141.jpg" />
+    <Content Include="Images\2.jpg" />
+    <Content Include="Images\4.jpg" />
+    <Content Include="Images\5.jpg" />
+    <Content Include="Images\6.jpg" />
+    <Content Include="Images\7.jpg" />
+    <Content Include="Images\8.jpg" />
+    <Content Include="Images\9.jpg" />
+    <Content Include="Images\backGround1.jpg" />
+    <Content Include="Images\backGround2.jpg" />
+    <Content Include="Images\backGround3.jpg" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
@@ -344,6 +361,9 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
+    <Content Include="Views\Home\Create.cshtml" />
+    <Content Include="Views\Home\Photo.cshtml" />
+    <Content Include="Views\Home\FileUpload.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -355,6 +375,10 @@
     <ProjectReference Include="..\PhotoShare.LogicService\PhotoShare.LogicService.csproj">
       <Project>{b7c652a6-3cbc-4efb-b676-1dbd44ee55cb}</Project>
       <Name>PhotoShare.LogicService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PhotoShare.Service\PhotoShare.Service.csproj">
+      <Project>{C8BFDEBB-7DAF-4823-8F81-B575905A6B1E}</Project>
+      <Name>PhotoShare.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

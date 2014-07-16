@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using PhotoShare.Service.Entities;
 
-namespace PhotoShare.Service
+namespace PhotoShare.Service.Entities
 {
     public class Photo : Entity
     {
@@ -10,6 +9,9 @@ namespace PhotoShare.Service
             UserId = userId;
             Image = image;
         }
+        public Photo()
+        {}
+
         public int UserId { get; private set; }
         public List<Comment> Comments { get; set; } 
         public byte[] Image { get; private set; }

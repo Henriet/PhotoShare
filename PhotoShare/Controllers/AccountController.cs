@@ -11,15 +11,20 @@ using Microsoft.Web.WebPages.OAuth;
 using PhotoShare.Filters;
 using PhotoShare.Models;
 using WebMatrix.WebData;
+using PhotoShare.LogicService;
 
 #endregion
 
 namespace PhotoShare.Controllers
 {
+    
+
     [Authorize]
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
+
+        readonly PhotoShareBl _businessLogic = new PhotoShareBl(); 
         //
         // GET: /Account/Login
 
@@ -84,6 +89,7 @@ namespace PhotoShare.Controllers
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
+                    _businessLogic.CreateAuthorizedUser(model.UserName, model.Surname, model.Email, model.Password);
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)

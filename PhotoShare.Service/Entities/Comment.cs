@@ -11,6 +11,9 @@ namespace PhotoShare.Service.Entities
             CommentOwner = ownerComment;
             Date = DateTime.Now;
         }
+
+        public Comment()
+        {}
         public string CommentText { get; set; }
         public AuthorizedUser CommentOwner { get; private set; }
         public DateTime Date { get; private set; }

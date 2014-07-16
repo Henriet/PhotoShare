@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using PhotoShare.Service;
 using PhotoShare.Service.Entities;
 using PhotoShare.Service.Repository;
 
 namespace PhotoShare.LogicService
 {
-    class PhotoShareBl : IPhotoShareBl
+    public class PhotoShareBl : IPhotoShareBl
     {
+        
         public Repository<Administrator> AdministratorRepository;
         public Repository<AuthorizedUser> AuthorizedUserRepository;
         public Repository<Comment> CommentRepository;
@@ -23,15 +25,16 @@ namespace PhotoShare.LogicService
             PhotoRepository = new Repository<Photo>(context);
         }
 
+        
 
         #region Administrator
-        public Administrator CreateAdministrator(string name, string surname, string email, string password)
+        public int CreateAdministrator(string name, string surname, string email, string password)
         {
             try
             {
                 var administrator = new Administrator(name, surname, email, password);
                 AdministratorRepository.Insert(administrator);
-                return administrator;
+                return administrator.Id;
             }
 
             catch (Exception)
@@ -99,13 +102,13 @@ namespace PhotoShare.LogicService
         #endregion Administrator
 
         #region AuthorizedUser
-        public AuthorizedUser CreateAuthorizedUser(string name, string surname, string email, string password)
+        public int CreateAuthorizedUser(string name, string surname, string email, string password)
         {
             try
             {
                 var user = new AuthorizedUser(name, surname, email, password);
                 AuthorizedUserRepository.Insert(user);
-                return user;
+                return user.Id;
             }
             catch (Exception)
             {
@@ -121,7 +124,7 @@ namespace PhotoShare.LogicService
                 var user = AuthorizedUserRepository.GetById(id);
                 AuthorizedUserRepository.Delete(user);
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 throw new Exception("Error in BL while attempts to delete an authorized user"); 
             }
@@ -162,9 +165,14 @@ namespace PhotoShare.LogicService
         {
             try
             {
-                return AuthorizedUserRepository.GetAll().ToList();
+                var users = AuthorizedUserRepository.GetAll().ToList();
+                return users;
             }
-            catch (Exception)
+            catch (TargetInvocationException e)
+            {
+                throw new Exception(e.Message);
+            }
+            catch (Exception exception)
             {
                 throw new Exception("Error in BL while attempts to get all authorized users"); 
             }
@@ -279,13 +287,13 @@ namespace PhotoShare.LogicService
         #endregion AuthorizedUser
 
         #region Comment
-        public Comment CreateComment(string text, AuthorizedUser ownerComment)
+        public int CreateComment(string text, AuthorizedUser ownerComment)
         {
             try
             {
                 var comment = new Comment(text, ownerComment);
                 CommentRepository.Insert(comment);
-                return comment;
+                return comment.Id;
             }
             catch (Exception)
             {
@@ -349,13 +357,13 @@ namespace PhotoShare.LogicService
 
         #region Photo
 
-        public Photo CreatePhoto(int userId, byte[] image)
+        public int CreatePhoto(int userId, byte[] image)
         {
             try
             {
                 var photo = new Photo(userId, image);
                 PhotoRepository.Insert(photo);
-                return photo;
+                return photo.Id;
             }
             catch (Exception)
             {
