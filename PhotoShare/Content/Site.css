@@ -4,11 +4,15 @@
     padding: 0;
     border: solid 10px #000;
     font-family: Aharoni;
+    height: 90%;
 }
 
+
 body {
+    height: 90%;
     background-color: #3B2113;
-    
+    border-collapse:collapse;
+border-spacing:0;
     color: #333;
     background: url("../Images/backGround2.jpg");
 

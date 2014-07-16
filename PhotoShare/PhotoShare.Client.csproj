@@ -219,13 +219,19 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\EmailSettings.cs" />
     <Compile Include="Models\Photo.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\Shared.en.Designer.cs">
+    <Compile Include="Resources\Views\Shared\SharedStrings.en.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Shared.en.resx</DependentUpon>
+      <DependentUpon>SharedStrings.en.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Views\Shared\SharedStrings.ru.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SharedStrings.ru.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -307,6 +313,8 @@
     <Content Include="Images\backGround1.jpg" />
     <Content Include="Images\backGround2.jpg" />
     <Content Include="Images\backGround3.jpg" />
+    <Content Include="Images\close.png" />
+    <Content Include="Scripts\jquery-1.7.1.min.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
@@ -322,8 +330,11 @@
     <Content Include="Scripts\knockout-3.1.0.debug.js" />
     <Content Include="Scripts\knockout-3.1.0.js" />
     <Content Include="Scripts\modernizr-2.7.2.js" />
+    <Content Include="Scripts\my_scripts.js" />
     <Content Include="Unity.Mvc4.README.txt" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -382,11 +393,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Shared.en.resx">
+    <EmbeddedResource Include="Resources\Views\Shared\SharedStrings.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Shared.en.Designer.cs</LastGenOutput>
+      <LastGenOutput>SharedStrings.en.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Shared.ru.resx" />
+    <EmbeddedResource Include="Resources\Views\Shared\SharedStrings.ru.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SharedStrings.ru.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

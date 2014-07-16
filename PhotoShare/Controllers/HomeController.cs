@@ -21,7 +21,6 @@ namespace PhotoShare.Controllers
            return View();
         }
 
-
         public ActionResult About()
         {
             //ViewBag.Message = "Your app description page.";
@@ -65,7 +64,6 @@ namespace PhotoShare.Controllers
             _bl.CreatePhoto(userId, photo.Image);
 
             //after successfully uploading redirect the user
-        //return RedirectToAction("Return", "Index", "Home/Index");
         return RedirectToAction("Index", "Home");
         }
     }
