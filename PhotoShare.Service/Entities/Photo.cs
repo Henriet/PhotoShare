@@ -20,6 +20,7 @@ namespace PhotoShare.Service.Entities
         public int UserId { get; private set; }
         public List<Comment> Comments { get; set; } 
         public byte[] Image { get; private set; }
+        //todo restrict 250 string
         public string Description { get; set; }
         public DateTime DateTime { get; private set; }
     }

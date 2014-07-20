@@ -19,5 +19,7 @@ namespace PhotoShare.Service.Entities
         public AuthorizedUser CommentOwner { get; private set; }
         public DateTime Date { get; private set; }
         public Photo Photo { get; private set; }
+
+        //todo photoid
     }
 }

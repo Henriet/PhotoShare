@@ -110,6 +110,7 @@ namespace PhotoShare.LogicService
                 var user = new AuthorizedUser(name, surname, email);
                 AuthorizedUserRepository.Insert(user);
                 return user.Id;
+                //todo pass id from mvc table
             }
             catch (Exception e)
             {
@@ -182,6 +183,8 @@ namespace PhotoShare.LogicService
         {
             try
             {
+                //todo get curent user id(Membership)
+                //todo move to seperate method
                 var user = AuthorizedUserRepository.GetById(userId);
                 var friend = AuthorizedUserRepository.GetById(friendId);
                 user.Friends.Add(friend);
@@ -229,7 +232,7 @@ namespace PhotoShare.LogicService
             {
                 var user = AuthorizedUserRepository.GetById(id);
                 var photos = user.Photos;
-                return photos;
+                return photos;//todo
             }
             catch (Exception)
             {
@@ -288,15 +291,8 @@ namespace PhotoShare.LogicService
             try
             {
                 var users = AuthorizedUserRepository.GetAll();
-                if (users.Any())
-                {
-                    foreach (var user in users)
-                    {
-                        if (user.Name == name)
-                            return user;
-                    }
-                }
-                return null;
+
+                return !users.Any() ? null : Enumerable.FirstOrDefault(users, user => user.Name == name);
             }
             catch (Exception)
             {
@@ -310,6 +306,7 @@ namespace PhotoShare.LogicService
         #region Comment
         public int CreateComment(string text, AuthorizedUser ownerComment, Photo photo)
         {
+            //todo onwerComment
             try
             {
                 var comment = new Comment(text, ownerComment, photo);
@@ -329,6 +326,7 @@ namespace PhotoShare.LogicService
             {
                 var comment = CommentRepository.GetById(id);
                 RemoveCommentFromPhoto(comment, comment.Photo.Id);
+               //todo delete
                 CommentRepository.Delete(comment);
             }
             catch (Exception)
@@ -342,7 +340,7 @@ namespace PhotoShare.LogicService
             try
             {
                 var comment = CommentRepository.GetById(id);
-                return comment;
+                return comment;//todo
             }
             catch (Exception)
             {

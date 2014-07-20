@@ -11,14 +11,16 @@ namespace PhotoShare.LogicService
         Administrator GetAdministratorById(int id);
         Administrator UpdateAdministrator(int id, string name, string surname, string email);
         List<Administrator> GetAllAdministrators();
+        //todo give take role
 
         int CreateAuthorizedUser(string name, string surname, string email);
         void DeleteAuthorizedUser(int id);
         AuthorizedUser GetAuthorizedUserById(int id);
         AuthorizedUser UpdateAuthorizedUser(int id, string name, string surname, string email);
         List<AuthorizedUser> GetAllAuthorizedUsers();
+
         void AddFriend(int userId, int friendId);
-        void DeleteFriend(int userId, int friendId);
+        void DeleteFriend(int userId, int friendId);//todo void
         AuthorizedUser ConfirmPassword(int id);
         List<Photo> GetUserPhotos(int id);
         AuthorizedUser ChangeAvatar(int id, Photo photo);
@@ -34,6 +36,7 @@ namespace PhotoShare.LogicService
         void DeletePhoto(int id);
         Photo GetPhotoById(int id);
         List<Photo> GetAllPhotos();
+        //get all follower potos
         Photo EditDescription(string text, int id);
 
     }

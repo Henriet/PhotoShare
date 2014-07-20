@@ -1,11 +1,8 @@
-﻿#region
+﻿#region namespace
 
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
 using PhotoShare.Models;
 using PhotoShare.LogicService;
 
@@ -15,12 +12,15 @@ namespace PhotoShare.Controllers
 {
     public class HomeController : Controller
     {
+        //todo move controllers to separet
+        //todo edit html files
+
         readonly PhotoShareBl _bl = new PhotoShareBl(); 
 
         public ActionResult Index()
         {
-            var users = _bl.GetAllAuthorizedUsers();
-           return View();
+            var photos = _bl.GetAllPhotos();
+            return View(photos);
         }
 
         public ActionResult About()
@@ -59,7 +59,7 @@ namespace PhotoShare.Controllers
         {
             if (!ModelState.IsValid || file == null) return RedirectToAction("Index", "Home");
             byte[] imageData;
-            // считываем переданный файл в массив байтов
+            // считываем переданный файл в массив байтов//todo
             using (var binaryReader = new BinaryReader(file.InputStream))
             {
                 imageData = binaryReader.ReadBytes(file.ContentLength);

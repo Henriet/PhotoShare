@@ -36,23 +36,20 @@ namespace PhotoShare.Models
                         if (photo.Comments != null)
                             if (photo.Comments.Any())
                             {
-                                foreach (var comment in photo.Comments)
+                                foreach (var addingComment in photo.Comments.Select(comment => new Comment(comment.CommentText, comment.CommentOwnerId)))
                                 {
-                                    var addingComment = new Comment(comment.CommentText, comment.CommentOwnerId);
                                     photo.Comments.Add(addingComment);
                                 }
                             }
                         photos.Add(addingPhoto);
                     }
             var friends = new List<User>();
-            if (authorizedUser.Friends != null)
-                if (authorizedUser.Friends.Any())
-                    foreach (var friend in friends)
-                    {
-                        var addingFriend = new User(friend.Name, friend.Surname, friend.Email);
-                        friends.Add(addingFriend);
-                    }
-
+            if (authorizedUser.Friends == null) return;
+            if (!authorizedUser.Friends.Any()) return;
+            foreach (var addingFriend in friends.Select(friend => new User(friend.Name, friend.Surname, friend.Email)))
+            {
+                friends.Add(addingFriend);
+            }
         }
     }
 }

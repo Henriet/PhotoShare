@@ -9,5 +9,6 @@ namespace PhotoShare.Service.Repository
         void Insert(T entity);
         void Update(T entity);
         void Delete(T entity);
+        //todo search
     }
 }
