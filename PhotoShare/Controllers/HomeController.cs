@@ -1,9 +1,11 @@
 ﻿#region
 
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using PhotoShare.Models;
 using PhotoShare.LogicService;
 
@@ -17,7 +19,7 @@ namespace PhotoShare.Controllers
 
         public ActionResult Index()
         {
-            
+            var users = _bl.GetAllAuthorizedUsers();
            return View();
         }
 
@@ -36,20 +38,24 @@ namespace PhotoShare.Controllers
 
         public ActionResult Photo()
         {
-            return View();
+            var authorizedUser = _bl.GetUserByName(System.Web.HttpContext.Current.User.Identity.Name);
+            var user = new User(authorizedUser);
+
+            return View(user);
         }
        
 
-        [Authorize]
+        
         public ActionResult FileUpload()
         {
-            var repositoryPhotos = _bl.GetAllPhotos();
-            var photos = repositoryPhotos.Select(photo => new Photo(photo.UserId, photo.Image)).ToList();
-            return View(photos);
+            //var repositoryPhotos = _bl.GetAllPhotos();
+            //var photos = repositoryPhotos.Select(photo => new Photo(photo.UserId, photo.Image)).ToList();
+            //return View(photos);
+            return View();
         }
 
         [HttpPost]
-        public ActionResult FileUpload(HttpPostedFileBase file)
+        public ActionResult Photo(HttpPostedFileBase file)
         {
             if (!ModelState.IsValid || file == null) return RedirectToAction("Index", "Home");
             byte[] imageData;
@@ -58,13 +64,13 @@ namespace PhotoShare.Controllers
             {
                 imageData = binaryReader.ReadBytes(file.ContentLength);
             }
-            var userId = _bl.CreateAuthorizedUser("nam1", "surname123", "qwerty@mail", "147852");
-            _bl.ConfirmPassword(userId);
-            var photo = new Photo(userId, imageData);
-            _bl.CreatePhoto(userId, photo.Image);
+            var user = _bl.GetUserByName(System.Web.HttpContext.Current.User.Identity.Name);
+            
+            var photo = new Photo(user.Id, imageData);
+            _bl.CreatePhoto(user.Id, photo.Image);
 
             //after successfully uploading redirect the user
-        return RedirectToAction("Index", "Home");
+        return RedirectToAction("Photo", "Home");
         }
     }
 }

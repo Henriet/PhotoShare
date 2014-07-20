@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using PhotoShare.Service;
@@ -10,7 +11,7 @@ namespace PhotoShare.LogicService
 {
     public class PhotoShareBl : IPhotoShareBl
     {
-        
+
         public Repository<Administrator> AdministratorRepository;
         public Repository<AuthorizedUser> AuthorizedUserRepository;
         public Repository<Comment> CommentRepository;
@@ -25,14 +26,14 @@ namespace PhotoShare.LogicService
             PhotoRepository = new Repository<Photo>(context);
         }
 
-        
 
         #region Administrator
-        public int CreateAdministrator(string name, string surname, string email, string password)
+
+        public int CreateAdministrator(string name, string surname, string email)
         {
             try
             {
-                var administrator = new Administrator(name, surname, email, password);
+                var administrator = new Administrator(name, surname, email);
                 AdministratorRepository.Insert(administrator);
                 return administrator.Id;
             }
@@ -69,7 +70,7 @@ namespace PhotoShare.LogicService
             }
         }
 
-        public Administrator UpdateAdministrator(int id, string name, string surname, string email, string password)
+        public Administrator UpdateAdministrator(int id, string name, string surname, string email)
         {
             try
             {
@@ -77,8 +78,7 @@ namespace PhotoShare.LogicService
                 administrator.Name = name;
                 administrator.Surname = surname;
                 administrator.Email = email;
-                administrator.Password = password;
-                
+
                 return administrator;
             }
             catch (Exception)
@@ -102,18 +102,19 @@ namespace PhotoShare.LogicService
         #endregion Administrator
 
         #region AuthorizedUser
-        public int CreateAuthorizedUser(string name, string surname, string email, string password)
+
+        public int CreateAuthorizedUser(string name, string surname, string email)
         {
             try
             {
-                var user = new AuthorizedUser(name, surname, email, password);
+                var user = new AuthorizedUser(name, surname, email);
                 AuthorizedUserRepository.Insert(user);
                 return user.Id;
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
-                throw new Exception("Error in BL while attempts to create an authorized user"); 
+                throw new Exception("Error in BL while attempts to create an authorized user");
             }
         }
 
@@ -124,9 +125,9 @@ namespace PhotoShare.LogicService
                 var user = AuthorizedUserRepository.GetById(id);
                 AuthorizedUserRepository.Delete(user);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw new Exception("Error in BL while attempts to delete an authorized user"); 
+                throw new Exception("Error in BL while attempts to delete an authorized user");
             }
         }
 
@@ -139,11 +140,11 @@ namespace PhotoShare.LogicService
             }
             catch (Exception)
             {
-                throw new Exception("Error in BL while attempts to get an authorized user by id"); 
+                throw new Exception("Error in BL while attempts to get an authorized user by id");
             }
         }
 
-        public AuthorizedUser UpdateAuthorizedUser(int id, string name, string surname, string email, string password)
+        public AuthorizedUser UpdateAuthorizedUser(int id, string name, string surname, string email)
         {
             try
             {
@@ -151,16 +152,15 @@ namespace PhotoShare.LogicService
                 user.Name = name;
                 user.Surname = surname;
                 user.Email = email;
-                user.Password = password;
                 AuthorizedUserRepository.Update(user);
                 return user;
             }
             catch (Exception)
             {
-                throw new Exception("Error in BL while attempts to update an authorized user"); 
+                throw new Exception("Error in BL while attempts to update an authorized user");
             }
         }
-        
+
         public List<AuthorizedUser> GetAllAuthorizedUsers()
         {
             try
@@ -174,7 +174,7 @@ namespace PhotoShare.LogicService
             }
             catch (Exception exception)
             {
-                throw new Exception("Error in BL while attempts to get all authorized users"); 
+                throw new Exception("Error in BL while attempts to get all authorized users");
             }
         }
 
@@ -189,7 +189,7 @@ namespace PhotoShare.LogicService
             }
             catch (Exception)
             {
-                throw new Exception("Error in BL while attempts to add friend"); 
+                throw new Exception("Error in BL while attempts to add friend");
             }
         }
 
@@ -204,7 +204,7 @@ namespace PhotoShare.LogicService
             }
             catch (Exception)
             {
-                throw new Exception("Error in BL while attempts to delete friend"); 
+                throw new Exception("Error in BL while attempts to delete friend");
             }
         }
 
@@ -219,7 +219,7 @@ namespace PhotoShare.LogicService
             }
             catch (Exception)
             {
-                throw new Exception("Error in BL while attempts to confirm password"); 
+                throw new Exception("Error in BL while attempts to confirm password");
             }
         }
 
@@ -233,11 +233,11 @@ namespace PhotoShare.LogicService
             }
             catch (Exception)
             {
-                throw new Exception("Error in BL while attempts to get all user's photos"); 
+                throw new Exception("Error in BL while attempts to get all user's photos");
             }
         }
 
-        public List<Photo> AddUserPhoto(int id, Photo photo)
+        private void AddUserPhoto(int id, Photo photo)
         {
             try
             {
@@ -245,7 +245,6 @@ namespace PhotoShare.LogicService
                 var photos = user.Photos;
                 photos.Add(photo);
                 AuthorizedUserRepository.Update(user);
-                return photos;
             }
             catch (Exception)
             {
@@ -253,15 +252,15 @@ namespace PhotoShare.LogicService
             }
         }
 
-        public List<Photo> DeleteUserPhoto(int id, Photo photo)
+        private void DeleteUserPhoto(int id, Photo photo)
         {
             try
             {
                 var user = AuthorizedUserRepository.GetById(id);
                 var photos = user.Photos;
-                if (photos.Contains(photo))
-                        photos.Remove(photo);
-                return photos;
+                if (!photos.Contains(photo)) return;
+                user.Photos.Remove(photo);
+                AuthorizedUserRepository.Update(user);
             }
             catch (Exception)
             {
@@ -284,14 +283,37 @@ namespace PhotoShare.LogicService
             }
         }
 
-        #endregion AuthorizedUser
-
-        #region Comment
-        public int CreateComment(string text, AuthorizedUser ownerComment)
+        public AuthorizedUser GetUserByName(string name)
         {
             try
             {
-                var comment = new Comment(text, ownerComment);
+                var users = AuthorizedUserRepository.GetAll();
+                if (users.Any())
+                {
+                    foreach (var user in users)
+                    {
+                        if (user.Name == name)
+                            return user;
+                    }
+                }
+                return null;
+            }
+            catch (Exception)
+            {
+
+                throw new Exception("Error in BL while attempts to get user by name");
+            }
+
+        }
+    #endregion AuthorizedUser
+
+        #region Comment
+        public int CreateComment(string text, AuthorizedUser ownerComment, Photo photo)
+        {
+            try
+            {
+                var comment = new Comment(text, ownerComment, photo);
+                AddCommentToPhoto(comment, photo.Id);
                 CommentRepository.Insert(comment);
                 return comment.Id;
             }
@@ -306,6 +328,7 @@ namespace PhotoShare.LogicService
             try
             {
                 var comment = CommentRepository.GetById(id);
+                RemoveCommentFromPhoto(comment, comment.Photo.Id);
                 CommentRepository.Delete(comment);
             }
             catch (Exception)
@@ -362,6 +385,7 @@ namespace PhotoShare.LogicService
             try
             {
                 var photo = new Photo(userId, image);
+                AddUserPhoto(userId, photo);
                 PhotoRepository.Insert(photo);
                 return photo.Id;
             }
@@ -376,6 +400,7 @@ namespace PhotoShare.LogicService
             try
             {
                 var photo = PhotoRepository.GetById(id);
+                DeleteUserPhoto(photo.UserId, photo);
                 PhotoRepository.Delete(photo);
             }
             catch (Exception)
@@ -421,6 +446,37 @@ namespace PhotoShare.LogicService
             catch (Exception)
             {
                 throw new Exception("Error in BL while attempts to edit description");
+            }
+        }
+
+        private void AddCommentToPhoto(Comment comment, int id)
+        {
+            try
+            {
+                var photo = PhotoRepository.GetById(id);
+                photo.Comments.Add(comment);
+                PhotoRepository.Update(photo);
+            }
+            catch (Exception)
+            {
+
+                throw new Exception("Error in BL while attempts to add comment to photo");
+            }
+        }
+
+        private void RemoveCommentFromPhoto(Comment comment, int id)
+        {
+            try
+            {
+                var photo = PhotoRepository.GetById(id);
+                if (!photo.Comments.Contains(comment)) return;
+                photo.Comments.Remove(comment);
+                PhotoRepository.Update(photo);
+            }
+            catch (Exception)
+            {
+
+                throw new Exception("Error in BL while attempts to remove comment from photo");
             }
         }
 

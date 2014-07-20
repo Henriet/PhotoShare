@@ -89,7 +89,7 @@ namespace PhotoShare.Controllers
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
-                    _businessLogic.CreateAuthorizedUser(model.UserName, model.Surname, model.Email, model.Password);
+                    _businessLogic.CreateAuthorizedUser(model.UserName, model.Surname, model.Email);
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)

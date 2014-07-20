@@ -7,21 +7,18 @@ namespace PhotoShare.Service.Entities
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
         public bool ConfirmPassword { get; set; }
         public List<AuthorizedUser> Friends { get; set; } 
         public List<Photo>Photos { get; set; } 
         public Photo Avatar { get; set; }
         
 
-        public AuthorizedUser(string name, string surname, string email, string password)
+        public AuthorizedUser(string name, string surname, string email)
         {
             Name = name;
             Surname = surname;
             Email = email;
-            Password = password;
             ConfirmPassword = false;
-            
         }
 
         public AuthorizedUser()

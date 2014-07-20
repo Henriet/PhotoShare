@@ -18,5 +18,6 @@ namespace PhotoShare.Models
         public string Description { get; set; }
         public string Name { get; set; }
         public int PhotoId { get; set; }
+        public DateTime DateTime { get; set; }
     }
 }

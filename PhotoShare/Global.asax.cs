@@ -1,10 +1,12 @@
 ﻿#region
 
+using System.Data.Entity;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using PhotoShare.Service;
 
 #endregion
 
@@ -17,6 +19,7 @@ namespace PhotoShare
     {
         protected void Application_Start()
         {
+            Database.SetInitializer<PhotoShareContext>(null);
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);

@@ -7,14 +7,14 @@ namespace PhotoShare.Models
 {
     public class Comment
     {
-        public Comment(string text, User ownerComment)
+        public Comment(string text, int ownerCommentId)
         {
             CommentText = text;
-            CommentOwner = ownerComment;
+            CommentOwnerId = ownerCommentId;
             Date = DateTime.Now;
         }
         public string CommentText { get; set; }
-        public User CommentOwner { get; private set; }
+        public int CommentOwnerId { get; private set; }
         public DateTime Date { get; private set; }
     }
 }

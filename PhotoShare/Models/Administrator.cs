@@ -8,7 +8,7 @@ namespace PhotoShare.Models
     public class Administrator : User
     {
         public Administrator(string name, string surname, string email, string password)
-            : base(name, surname, email, password)
+            : base(name, surname, email)
         {
             ConfirmPassword = true;
         }

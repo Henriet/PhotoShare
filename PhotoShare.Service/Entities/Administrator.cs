@@ -2,8 +2,8 @@
 {
     public class Administrator : AuthorizedUser
     {
-        public Administrator(string name, string surname, string email, string password)
-            : base(name, surname, email, password)
+        public Administrator(string name, string surname, string email)
+            : base(name, surname, email)
         {
             ConfirmPassword = true;
         }
