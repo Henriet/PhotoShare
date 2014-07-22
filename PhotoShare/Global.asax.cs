@@ -19,7 +19,8 @@ namespace PhotoShare
     {
         protected void Application_Start()
         {
-            Database.SetInitializer<PhotoShareContext>(null);
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<PhotoShareContext>());
+
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
