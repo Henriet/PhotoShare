@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using PhotoShare.Domain;
 
-namespace PhotoShare.Service.Entities
+namespace PhotoShare.Domain
 {
     public class Photo : Entity
     {
@@ -20,7 +22,7 @@ namespace PhotoShare.Service.Entities
         public int UserId { get; private set; }
         public List<Comment> Comments { get; set; } 
         public byte[] Image { get; private set; }
-        //todo restrict 250 string
+        [MaxLength(255)]
         public string Description { get; set; }
         public DateTime DateTime { get; private set; }
     }
