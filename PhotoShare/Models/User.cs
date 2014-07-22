@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using PhotoShare.Service.Entities;
 
 namespace PhotoShare.Models
 {
@@ -25,31 +24,31 @@ namespace PhotoShare.Models
             ConfirmPassword = false;
         }
 
-        public User(AuthorizedUser authorizedUser)
-        {
-            var photos = new List<Photo>();
-            if (authorizedUser.Photos != null)
-                if (authorizedUser.Photos.Any())
-                    foreach (var photo in photos)
-                    {
-                        var addingPhoto = new Photo(photo.UserId, photo.Image);
-                        if (photo.Comments != null)
-                            if (photo.Comments.Any())
-                            {
-                                foreach (var addingComment in photo.Comments.Select(comment => new Comment(comment.CommentText, comment.CommentOwnerId)))
-                                {
-                                    photo.Comments.Add(addingComment);
-                                }
-                            }
-                        photos.Add(addingPhoto);
-                    }
-            var friends = new List<User>();
-            if (authorizedUser.Friends == null) return;
-            if (!authorizedUser.Friends.Any()) return;
-            foreach (var addingFriend in friends.Select(friend => new User(friend.Name, friend.Surname, friend.Email)))
-            {
-                friends.Add(addingFriend);
-            }
-        }
+        //public User(User user)
+        //{
+        //    var photos = new List<Photo>();
+        //    if (user.Photos != null)
+        //        if (user.Photos.Any())
+        //            foreach (var photo in photos)
+        //            {
+        //                var addingPhoto = new Photo(photo.UserId, photo.Image);
+        //                if (photo.Comments != null)
+        //                    if (photo.Comments.Any())
+        //                    {
+        //                        foreach (var addingComment in photo.Comments.Select(comment => new Comment(comment.CommentText, comment.CommentOwnerId)))
+        //                        {
+        //                            photo.Comments.Add(addingComment);
+        //                        }
+        //                    }
+        //                photos.Add(addingPhoto);
+        //            }
+        //    var friends = new List<User>();
+        //    if (user.Friends == null) return;
+        //    if (!user.Friends.Any()) return;
+        //    foreach (var addingFriend in friends.Select(friend => new User(friend.Name, friend.Surname, friend.Email)))
+        //    {
+        //        friends.Add(addingFriend);
+        //    }
+        //}
     }
 }

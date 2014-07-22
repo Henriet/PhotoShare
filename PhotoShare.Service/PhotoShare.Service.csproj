@@ -47,12 +47,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Administrator.cs" />
-    <Compile Include="Entities\AuthorizedUser.cs" />
-    <Compile Include="Entities\Comment.cs" />
-    <Compile Include="Entities\Entity.cs" />
-    <Compile Include="Entities\Guest.cs" />
-    <Compile Include="Entities\Photo.cs" />
     <Compile Include="IPhotoShareContext.cs" />
     <Compile Include="PhotoShareContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -62,6 +56,12 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PhotoShare.Domain\PhotoShare.Domain.csproj">
+      <Project>{87be430f-87b7-4877-b998-4137bb6a8cbd}</Project>
+      <Name>PhotoShare.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
