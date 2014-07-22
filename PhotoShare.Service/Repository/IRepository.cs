@@ -1,14 +1,18 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace PhotoShare.Service.Repository
 {
     public interface IRepository<T> where T : class
     {
-        IQueryable<T> GetAll();
-        T GetById(object id);
-        void Insert(T entity);
-        void Update(T entity);
-        void Delete(T entity);
-        //todo search
+        T Get(Guid id);
+        T Insert(T item);
+        bool Update(T item);
+        bool Delete(Guid id);
+        void CommitChanges();
+
+        List<T> All();
+        IEnumerable<T> Find(Expression<Func<T, bool>> predicate);
     }
 }
