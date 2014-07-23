@@ -24,7 +24,7 @@ namespace PhotoShare.Controllers
     public class AccountController : Controller
     {
 
-        readonly UserBl _userBl = new UserBl(); 
+       // readonly PhotoShareBl _businessLogic = new PhotoShareBl(); 
         //
         // GET: /Account/Login
 
@@ -89,8 +89,7 @@ namespace PhotoShare.Controllers
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
-                    var user = new User(model.UserName, model.Surname, model.Email);
-                    //_userBl.AddUser((PhotoShare.Service.Entities.User)user); todo
+                    //_businessLogic.CreateAuthorizedUser(model.UserName, model.Surname, model.Email);//todo
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)

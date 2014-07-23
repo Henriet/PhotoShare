@@ -1,4 +1,4 @@
-﻿@model List<PhotoShare.Models.Photo>
+﻿@*@model List<PhotoShare.Models.Photo>*@
 
 @{
     ViewBag.Title = "Home Page";
@@ -17,19 +17,19 @@
     <h3> <b>Photo Share</b> - Web-приложение для быстрого обмена фотографиями </h3>
     <p>Для просмотра и добавления фотографий необходимо зарегестрироваться</p>
     <p>
-        @foreach (var item in Model)
+        @*@foreach (var item in Model)
         {
             
              <img src="@Convert.ToBase64String(item.Image)" height="70%" width="15%" />
-        }
-      @*  <img src="/Images/1.jpg" height="70%" width="15%" />
+        }*@
+        <img src="/Images/1.jpg" height="70%" width="15%" />
         <img src="/Images/2.jpg" height="70%" width="15%"/>
       
         <img src="/Images/5.jpg" height="70%" width="15%"/>
         <img src="/Images/6.jpg" height="70%" width="15%"/>
         <img src="/Images/7.jpg" height="70%" width="15%"/>
        
-        <img src="/Images/9.jpg" height="70%" width="15%"/>*@
+        <img src="/Images/9.jpg" height="70%" width="15%"/>
     </p>
 </body>
 
