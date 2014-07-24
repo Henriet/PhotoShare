@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[Guest
+]
+(
+	[Id] INT NOT NULL PRIMARY KEY
+)

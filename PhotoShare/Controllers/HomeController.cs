@@ -1,9 +1,8 @@
 ﻿#region namespace
 
-using System.IO;
-using System.Web;
+using System;
 using System.Web.Mvc;
-using PhotoShare.Models;
+using PhotoShare.Domain;
 using PhotoShare.LogicService;
 
 #endregion
@@ -14,19 +13,19 @@ namespace PhotoShare.Controllers
     {
         //todo move controllers to separet
         //todo edit html files
-
-       // readonly PhotoShareBl _bl = new PhotoShareBl(); 
+        UserBl _userBl = new UserBl();
+        CommentBl _commentBl = new CommentBl();
+        PhotoBl _photoBl = new PhotoBl();
+    
 
         public ActionResult Index()
         {
-        //    var photos = _bl.GetAllPhotos();
+            var users = _userBl.GetAllUsers();
             return View();
         }
 
         public ActionResult About()
         {
-            //ViewBag.Message = "Your app description page.";
-
             return View();
         }
 

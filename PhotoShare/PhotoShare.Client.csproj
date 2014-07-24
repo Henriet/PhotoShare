@@ -235,6 +235,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\aspnet-PhotoShare-20140703223910_log.ldf" />
+    <Content Include="App_Data\dbo.Table.sql" />
+    <Content Include="App_Data\PhotoShare.mdf" />
+    <Content Include="App_Data\PhotoShare_log.ldf">
+      <DependentUpon>PhotoShare.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -315,6 +321,7 @@
     <Content Include="Images\backGround3.jpg" />
     <Content Include="Images\close.png" />
     <Content Include="Images\test.jpg" />
+    <Content Include="Scripts\DropZone.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
@@ -377,13 +384,15 @@
     <Content Include="Views\Home\Photo.cshtml" />
     <Content Include="Views\Home\FileUpload.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PhotoShare.Domain\PhotoShare.Domain.csproj">
+      <Project>{87be430f-87b7-4877-b998-4137bb6a8cbd}</Project>
+      <Name>PhotoShare.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PhotoShare.LogicService\PhotoShare.LogicService.csproj">
       <Project>{b7c652a6-3cbc-4efb-b676-1dbd44ee55cb}</Project>
       <Name>PhotoShare.LogicService</Name>

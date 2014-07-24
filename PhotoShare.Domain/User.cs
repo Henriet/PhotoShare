@@ -13,12 +13,12 @@ namespace PhotoShare.Domain
         public Photo Avatar { get; set; }
         
 
-        public User(string name, string surname, string email, Guid id)
+        public User(string name, string surname, string email)
         {
             Name = name;
             Surname = surname;
             Email = email;
-            Id = id;
+           // Id = id;
         }
 
         public User(){}

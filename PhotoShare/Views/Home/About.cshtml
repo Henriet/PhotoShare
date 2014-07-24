@@ -1,25 +1,18 @@
 ﻿@{
     ViewBag.Title = "About";
 }
+<script type="text/javascript" src="~/Scripts/DropZone.js"></script>
 
 <hgroup class="title">
     <h1>@ViewBag.Title.</h1>
     <h2>@ViewBag.Message</h2>
 </hgroup>
 
-<article>
-    <p>
-        Use this area to provide additional information.
-    </p>
 
-    <p>
-        Use this area to provide additional information.
-    </p>
+    <div id="dropzone">
+        <input name="file" type="file" multiple />
+    </div>
 
-    <p>
-        Use this area to provide additional information.
-    </p>
-</article>
 
 <aside>
     <h3>Aside Title</h3>
