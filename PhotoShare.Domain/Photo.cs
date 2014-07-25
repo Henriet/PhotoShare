@@ -7,7 +7,7 @@ namespace PhotoShare.Domain
 {
     public class Photo : Entity
     {
-        public Photo(int userId, byte[] image)
+        public Photo(Guid userId, byte[] image)
         {
             UserId = userId;
             Image = image;
@@ -19,7 +19,7 @@ namespace PhotoShare.Domain
             DateTime = DateTime.Now;
         }
 
-        public int UserId { get; private set; }
+        public Guid UserId { get; private set; }
         public List<Comment> Comments { get; set; } 
         public byte[] Image { get; private set; }
         [MaxLength(255)]

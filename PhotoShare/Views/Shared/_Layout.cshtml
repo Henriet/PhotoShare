@@ -25,13 +25,19 @@
                             <li>@Html.ActionLink("Home", "Index", "Home")</li>
                             <li>@Html.ActionLink("About", "About", "Home")</li>
                             <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                            <li>@Html.ActionLink("Add Photo", "Index", "Photo")</li>
+                            <li>@Html.ActionLink("Photo Share", "PhotoShare", "Photo")</li>
                             
-                            <div class="form-group">
-                              <input type="text" class="form-control" placeholder="Search">
-                        </div>
-                        <button type="submit" class="btn btn-default">Search</button>
+                           
                         </ul>
                     </nav>
+                    @{var searchString = (string)ViewBag.Search;}
+                    @using (Html.BeginForm("Index", "User", FormMethod.Post, new { @class = "Search" }))
+                    {
+                        @Html.TextBox("searchString", searchString ?? "", new { @class = "input-medium search-query" })
+                        <button type="submit" class="btn">Поиск</button> 
+                         
+                    }
                 </div>
             </div>
         </header>
@@ -41,13 +47,7 @@
                 @RenderBody()
             </section>
         </div>
-        <footer>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
-                </div>
-            </div>
-        </footer>
+
 
         @Scripts.Render("~/bundles/jquery")
         @RenderSection("scripts", false)

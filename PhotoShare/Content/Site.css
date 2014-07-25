@@ -1,18 +1,16 @@
 ﻿html {
-    background-color: #000;
     margin: 0;
     padding: 0;
-    border: solid 10px #000;
     font-family: Aharoni;
-    height: 90%;
 }
 
 
 body {
+
     height: 100%;
     background-color: #3B2113;
     border-collapse:collapse;
-border-spacing:0;
+    border-spacing:0;
     color: #333;
     background: url("../Images/backGround2.jpg");
 
@@ -20,8 +18,6 @@ border-spacing:0;
     font-size: .85em;
     margin: 0;
     padding: 5%;
-    
-    font-family: Aharoni;
 }
 
 a {
@@ -37,7 +33,7 @@ a:active, a:hover { color: #333; }
 
 a:hover { background-color: #c7d1d6; }
 
-header, footer, hgroup,
+header, hgroup,
 nav, section { display: block; }
 
 mark {
@@ -135,18 +131,18 @@ footer {
 ---------------------------------------------------------*/
 
 #login {
-    display: block;
-    font-size: .85em;
+
+    font-size: 20px;
     margin: 0 0 10px;
     text-align: right;
 }
 
 #login a {
-    background-color: #d3dce0;
+    color: white;
     margin-left: 10px;
     margin-right: 3px;
-    padding: 2px 3px;
     text-decoration: none;
+
 }
 
 #login a.username {
@@ -200,20 +196,18 @@ ul#menu li a:hover {
 
 .featured { background-color: #fff; }
 
-/*.featured .content-wrapper {
-    background-color: #FFFFB2;
-    background-image: -ms-linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
-    background-image: -o-linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
-    background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #7ac0da), color-stop(1, #a4d4e6));
-    background-image: -webkit-linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
-    background-image: linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
-    color: #3e5667;
-    padding: 20px 40px 30px 40px;
-}*/
 
 .featured hgroup.title h1, .featured hgroup.title h2 { color: #fff; }
 
 .featured p { font-size: 1.1em; }
+
+.Search {
+    position: relative;
+    float: right;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
 
 /* page titles */
 
@@ -275,7 +269,7 @@ article {
 
 aside {
     float: right;
-    width: 25%;
+    width: 35%;
 }
 
 aside ul {

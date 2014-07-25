@@ -120,15 +120,19 @@ namespace PhotoShare.LogicService
         {
             try
             {
-                var membershipUser = Membership.GetUser();
+                //var membershipUser = Membership.GetUser();
 
-                if (membershipUser == null) return null;
-                if (membershipUser.ProviderUserKey == null) return null;
-                var userId = membershipUser.ProviderUserKey.ToString();
-                Guid userIdGuid;
-                Guid.TryParse(userId, out userIdGuid);
+                //if (membershipUser == null) return null;
+                //if (membershipUser.ProviderUserKey == null) return null;
+                //var userId = membershipUser.ProviderUserKey.ToString();
+                //Guid userIdGuid;
+                //Guid.TryParse(userId, out userIdGuid);
 
-                return _userRepository.Get(userIdGuid);
+                var userName = System.Web.HttpContext.Current.User.Identity.Name;
+                var currentUser = _userRepository.Find(user => user.Name == userName).First();
+
+
+                return currentUser;
             }
             catch (Exception)
             {

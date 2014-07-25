@@ -13,7 +13,7 @@ namespace PhotoShare.Controllers
     {
         //todo move controllers to separet
         //todo edit html files
-        UserBl _userBl = new UserBl();
+        readonly UserBl _userBl = new UserBl();
         CommentBl _commentBl = new CommentBl();
         PhotoBl _photoBl = new PhotoBl();
     
@@ -58,7 +58,6 @@ namespace PhotoShare.Controllers
         //{
         //    if (!ModelState.IsValid || file == null) return RedirectToAction("Index", "Home");
         //    byte[] imageData;
-        //    // считываем переданный файл в массив байтов//todo
         //    using (var binaryReader = new BinaryReader(file.InputStream))
         //    {
         //        imageData = binaryReader.ReadBytes(file.ContentLength);

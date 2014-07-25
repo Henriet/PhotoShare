@@ -1,13 +1,6 @@
 ﻿
-;(function(){
 
-/**
- * Require the module at `name`.
- *
- * @param {String} name
- * @return {Object} exports
- * @api public
- */
+
 
 function require(name) {
   var module = require.modules[name];
