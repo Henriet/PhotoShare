@@ -32,7 +32,7 @@
                         </ul>
                     </nav>
                     @{var searchString = (string)ViewBag.Search;}
-                    @using (Html.BeginForm("Index", "User", FormMethod.Post, new { @class = "Search" }))
+                    @using (Html.BeginForm("Search", "User", FormMethod.Post, new { @class = "Search" }))
                     {
                         @Html.TextBox("searchString", searchString ?? "", new { @class = "input-medium search-query" })
                         <button type="submit" class="btn">Поиск</button> 

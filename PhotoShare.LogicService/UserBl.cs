@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web.Security;
 using PhotoShare.Domain;
 using PhotoShare.Service.Repository;
@@ -130,8 +131,6 @@ namespace PhotoShare.LogicService
 
                 var userName = System.Web.HttpContext.Current.User.Identity.Name;
                 var currentUser = _userRepository.Find(user => user.Name == userName).First();
-
-
                 return currentUser;
             }
             catch (Exception)
@@ -140,6 +139,11 @@ namespace PhotoShare.LogicService
                 throw new Exception("Error in BL while attempts to get current user ");
             }
 
+        }
+
+        public List<User> SearchUser(string searchString)
+        {
+            return _userRepository.Find(user => user.Name.Contains(searchString)).ToList();
         }
 
         public void GiveAdminRole(Guid id) //todo

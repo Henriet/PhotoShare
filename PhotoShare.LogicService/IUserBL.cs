@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using PhotoShare.Domain;
 
 namespace PhotoShare.LogicService
@@ -14,6 +15,7 @@ namespace PhotoShare.LogicService
         bool AddFriend(Guid friendId);
         bool DeleteFriend(Guid friendId);
         User GetCurrentUser();
+        List<User> SearchUser(string searchString);
         void GiveAdminRole(Guid id); // todo
         void TakeAdminRole(Guid id); // todo
     }

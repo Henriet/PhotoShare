@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Search";
+}
+
+@using Microsoft.Ajax.Utilities
+@model List<PhotoShare.Domain.User>
+
+@if (Model != null)
+{
+    <ul>
+        @foreach (var person in Model)
+        {
+            <li>
+                @Html.ActionLink(person.Name + " " + person.Surname, "UserProfile", "User", person.Name)
+            </li>
+        }
+    </ul>
+}
