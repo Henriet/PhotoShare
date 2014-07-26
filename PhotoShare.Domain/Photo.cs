@@ -21,8 +21,8 @@ namespace PhotoShare.Domain
 
         public Guid UserId { get; private set; }
         public List<Comment> Comments { get; set; } 
-        public byte[] Image { get; private set; }
-        [MaxLength(255)]
+        public byte[] Image { get; set; }
+        [StringLength(255, ErrorMessage = "First name cannot be longer than 255 characters.")]
         public string Description { get; set; }
         public DateTime DateTime { get; private set; }
     }

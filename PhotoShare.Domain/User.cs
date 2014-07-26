@@ -10,7 +10,7 @@ namespace PhotoShare.Domain
         public string Email { get; set; }
         public List<User> Friends { get; set; } 
         public List<Photo>Photos { get; set; } 
-        public Photo Avatar { get; set; }
+        public byte[] Avatar { get; set; }
         
 
         public User(string name, string surname, string email)
@@ -18,7 +18,6 @@ namespace PhotoShare.Domain
             Name = name;
             Surname = surname;
             Email = email;
-           // Id = id;
         }
 
         public User(){}

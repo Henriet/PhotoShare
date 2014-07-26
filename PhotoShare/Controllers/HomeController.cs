@@ -20,7 +20,8 @@ namespace PhotoShare.Controllers
 
         public ActionResult Index()
         {
-            var users = _userBl.GetAllUsers();
+            var user = new User("Elena", "Kukhar", "test@mail");
+            _userBl.AddUser(user);
             return View();
         }
 

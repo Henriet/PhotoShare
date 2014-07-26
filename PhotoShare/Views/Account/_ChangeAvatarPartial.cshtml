@@ -1,0 +1,27 @@
+﻿@using PhotoShare.LogicService
+
+<script type="text/javascript" src="~/Scripts/DropZone.js"></script>
+<h3>
+    Current avatar
+
+</h3>
+
+@{
+    var userBl = new UserBl();
+    var currentUser = userBl.GetCurrentUser();
+    if (currentUser.Avatar != null)
+    {
+        @Html.Raw("<img class = 'preview' style='max-height: 100px;max-width: 100px; padding: 5px;' src=\"data:image/jpeg;base64,"
+               + Convert.ToBase64String(currentUser.Avatar.Image) + "\" />")
+     }
+     else
+     {
+         <img src="/Images/defaultAvatar.jpg" height="100px" width="100px" />
+     }
+}
+
+    <div id="dropzone">
+        <input name="file" type="file" />
+    </div>
+
+

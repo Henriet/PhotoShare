@@ -2,16 +2,21 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Transactions;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
+using PhotoShare.Domain;
 using PhotoShare.Filters;
 using PhotoShare.Models;
 using WebMatrix.WebData;
 using PhotoShare.LogicService;
+using Photo = PhotoShare.Domain.Photo;
+using User = PhotoShare.Domain.User;
 
 #endregion
 
@@ -23,10 +28,8 @@ namespace PhotoShare.Controllers
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
-
-       // readonly PhotoShareBl _businessLogic = new PhotoShareBl(); 
-        //
-        // GET: /Account/Login
+        UserBl _userBl = new UserBl();
+       
 
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -82,20 +85,21 @@ namespace PhotoShare.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterModel model)
         {
-            if (ModelState.IsValid)
+            var userBl = new UserBl();
+
+            if (!ModelState.IsValid) return View(model);
+            // Attempt to register the user
+            try
             {
-                // Attempt to register the user
-                try
-                {
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    WebSecurity.Login(model.UserName, model.Password);
-                    //_businessLogic.CreateAuthorizedUser(model.UserName, model.Surname, model.Email);//todo
-                    return RedirectToAction("Index", "Home");
-                }
-                catch (MembershipCreateUserException e)
-                {
-                    ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
-                }
+                WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
+                WebSecurity.Login(model.UserName, model.Password);
+                var user = new User(model.UserName, model.Surname, model.Email);
+                userBl.AddUser(user);
+                return RedirectToAction("Index", "Home");
+            }
+            catch (MembershipCreateUserException e)
+            {
+                ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
             }
 
             // If we got this far, something failed, redisplay form
@@ -138,6 +142,8 @@ namespace PhotoShare.Controllers
 
         public ActionResult Manage(ManageMessageId? message)
         {
+            var user = _userBl.GetCurrentUser();
+
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess
                     ? "Your password has been changed."
@@ -156,33 +162,49 @@ namespace PhotoShare.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Manage(LocalPasswordModel model)
+        public ActionResult Manage(HttpPostedFileBase file, LocalPasswordModel model)
         {
-            bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
+            if (file != null)
+            {
+                byte[] imageData;
+                BinaryReader binaryReader;
+                using (binaryReader = new BinaryReader(file.InputStream))
+                {
+                    imageData = binaryReader.ReadBytes(file.ContentLength);
+                }
+                var userBl = new UserBl();
+                var user = userBl.GetCurrentUser();
+                user.Avatar = imageData;
+                
+                userBl.UpdateUser(user);
+            }
+            //todo error!!!!!!
+
+
+
+            var hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             ViewBag.HasLocalPassword = hasLocalAccount;
             ViewBag.ReturnUrl = Url.Action("Manage");
             if (hasLocalAccount)
             {
-                if (ModelState.IsValid)
+                if (!ModelState.IsValid) return View(model);
+                // ChangePassword will throw an exception rather than return false in certain failure scenarios.
+                bool changePasswordSucceeded;
+                try
                 {
-                    // ChangePassword will throw an exception rather than return false in certain failure scenarios.
-                    bool changePasswordSucceeded;
-                    try
-                    {
-                        changePasswordSucceeded = WebSecurity.ChangePassword(User.Identity.Name, model.OldPassword,
-                            model.NewPassword);
-                    }
-                    catch (Exception)
-                    {
-                        changePasswordSucceeded = false;
-                    }
-
-                    if (changePasswordSucceeded)
-                    {
-                        return RedirectToAction("Manage", new {Message = ManageMessageId.ChangePasswordSuccess});
-                    }
-                    ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
+                    changePasswordSucceeded = WebSecurity.ChangePassword(User.Identity.Name, model.OldPassword,
+                        model.NewPassword);
                 }
+                catch (Exception)
+                {
+                    changePasswordSucceeded = false;
+                }
+
+                if (changePasswordSucceeded)
+                {
+                    return RedirectToAction("Manage", new {Message = ManageMessageId.ChangePasswordSuccess});
+                }
+                ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
             }
             else
             {
@@ -214,6 +236,13 @@ namespace PhotoShare.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+
+        //[HttpPost]
+        //public ActionResult Manage(HttpPostedFileBase file)
+        //{
+        //    return View();
+        //}
 
         //
         // POST: /Account/ExternalLogin
@@ -278,7 +307,7 @@ namespace PhotoShare.Controllers
             if (ModelState.IsValid)
             {
                 // Insert a new user into the database
-                using (UsersContext db = new UsersContext())
+                using (var db = new UsersContext())
                 {
                     UserProfile user =
                         db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
@@ -324,7 +353,7 @@ namespace PhotoShare.Controllers
         public ActionResult RemoveExternalLogins()
         {
             ICollection<OAuthAccount> accounts = OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name);
-            List<ExternalLogin> externalLogins = new List<ExternalLogin>();
+            var externalLogins = new List<ExternalLogin>();
             foreach (OAuthAccount account in accounts)
             {
                 AuthenticationClientData clientData = OAuthWebSecurity.GetOAuthClientData(account.Provider);

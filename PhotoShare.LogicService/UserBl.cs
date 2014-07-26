@@ -21,7 +21,6 @@ namespace PhotoShare.LogicService
         {
             try
             {
-               // user.Id = GetCurrentUser().Id;
                 return _userRepository.Insert(user);
             }
             catch (Exception)
