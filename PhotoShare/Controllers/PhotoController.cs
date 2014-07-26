@@ -1,8 +1,10 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using Microsoft.Ajax.Utilities;
 using PhotoShare.LogicService;
 using PhotoShare.Models;
@@ -19,16 +21,17 @@ namespace PhotoShare.Controllers
         //
         // GET: /Photo/
         [Authorize]
-        public ActionResult Index()
+        public ActionResult AddPhoto()
         {
-            var model = new PhotoModel { UrlPhotoPath = "photoUrl", Description = "photoDescription" };
+            var model = new PhotoModel { UrlPhotoPath = "photoUrl"};
             return View(model);
         }
 
+        [Authorize]
         [HttpPost]
-        public ActionResult Index(HttpPostedFileBase file, string photoUrl)
+        public ActionResult AddPhoto(HttpPostedFileBase file, string photoUrl)
         {
-            if (!ModelState.IsValid || (file == null && photoUrl.IsNullOrWhiteSpace())) return RedirectToAction("Index", "Home");
+            if (!ModelState.IsValid || (file == null && photoUrl.IsNullOrWhiteSpace())) return RedirectToAction("AddPhoto");
             var imageData = new byte[] {};
 
             if (file != null)
@@ -48,14 +51,12 @@ namespace PhotoShare.Controllers
                    imageData = DownloadImages(photoUrl);
                 }
             }
-            
+            if (!imageData.Any()) return RedirectToAction("AddPhotoStepTwo");
             var user = _userBl.GetCurrentUser();
-            var photo = new Photo(user.Id, imageData);
-            _photoBl.CreatePhoto(photo);
+            var photo = new Models.Photo(user.Id, imageData);
 
-
-            //after successfully uploading redirect the user
-            return RedirectToAction("Index", "Home");
+            TempData["uploadPhoto"] = photo;
+            return RedirectToAction("AddPhotoStepTwo");
         }
 
         public byte[] DownloadImages(string urlImage)
@@ -78,6 +79,32 @@ namespace PhotoShare.Controllers
                 return null;
             }
         }
+
+        [Authorize]
+        public ActionResult AddPhotoStepTwo()
+        {
+
+            var photo =(Models.Photo) TempData["uploadPhoto"];
+            photo.Description = " ";
+            TempData["photo"] = photo;
+            return View(photo);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult AddPhotoStepTwo(string description)
+        {
+            var newDescription = Request.Form[0];
+           var photo = (Models.Photo) TempData["photo"];
+           var uploadPhoto = new Photo(photo.UserId, photo.Image);
+           if (!newDescription.IsNullOrWhiteSpace())
+               uploadPhoto.Description = newDescription;
+            _photoBl.CreatePhoto(uploadPhoto);
+
+            return RedirectToAction("AddPhoto");
+
+        }
+
 
         [Authorize]
         public ActionResult PhotoShare()

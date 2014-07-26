@@ -1,0 +1,32 @@
+﻿@model PhotoShare.Models.Photo
+
+@{
+    ViewBag.Title = "Добавление изображения";
+}
+
+@if (Model != null)
+{
+     @Html.Raw("<img class = 'preview' style='max-height: 50vh;max-width: 70vw;' src=\"data:image/jpeg;base64,"
+                  + Convert.ToBase64String(Model.Image) + "\" />")
+
+
+    using (Html.BeginForm("AddPhotoStepTwo", "Photo", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div>
+            @Html.TextBox(Model.Description, "", new { PlaceHolder = "Описание"})
+        </div>
+        <div>
+            <input type="submit" value="Загрузить фото">
+        </div>
+     }
+
+}
+else
+{
+    <h3>
+        @Html.ActionLink("Изображение не удалось загрузить.  Попробуйте снова", "AddPhoto")
+
+    </h3>
+}
+
+

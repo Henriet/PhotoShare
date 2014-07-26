@@ -323,6 +323,7 @@
     <Content Include="Images\backGround2.jpg" />
     <Content Include="Images\backGround3.jpg" />
     <Content Include="Images\close.png" />
+    <Content Include="Images\favicon.ico" />
     <Content Include="Images\test.jpg" />
     <Content Include="Scripts\DropZone.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -386,10 +387,11 @@
     <Content Include="Views\Home\Create.cshtml" />
     <Content Include="Views\Home\Photo.cshtml" />
     <Content Include="Views\Home\FileUpload.cshtml" />
-    <Content Include="Views\Photo\Index.cshtml" />
     <Content Include="Views\Photo\PhotoShare.cshtml" />
     <Content Include="Views\User\Search.cshtml" />
     <Content Include="Views\User\UserProfile.cshtml" />
+    <Content Include="Views\Photo\AddPhoto.cshtml" />
+    <Content Include="Views\Photo\AddPhotoStepTwo.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

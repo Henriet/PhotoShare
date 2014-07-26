@@ -63,5 +63,10 @@ namespace PhotoShare.LogicService
                 throw new Exception("Error in BL while attempts to get all photos");
             }
         }
+
+        public bool UpdatePhoto(Photo photo)
+        {
+            return _photoRepository.Update(photo);
+        }
     }
 }

@@ -1,0 +1,26 @@
+﻿@model PhotoShare.Models.PhotoModel
+@{
+    ViewBag.Title = "Add photo";
+}
+<script type="text/javascript" src="~/Scripts/DropZone.js"></script>
+
+<p>Для добавления фотографии нажмите кнопку "Выбрать файл" или перетащите фото.</p>
+<p>Так же вы можете вставить ссылку на Интернет-источник для загрузки изображения.</p>
+@using (Html.BeginForm("AddPhoto", "Photo", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div id="dropzone">
+        <input name="file" type="file" />
+    </div>
+
+    <div>
+        @Html.TextBox(Model.UrlPhotoPath, "", new { PlaceHolder = "Url"})
+    </div>
+    
+
+    <p>
+        <input type="submit" value="Добавить фото">
+    </p>
+}
+
+
+

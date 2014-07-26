@@ -707,3 +707,9 @@ display:none;
 background:#000;
 opacity:.85;
 }
+
+.preview {
+    max-height: 30px;
+    width: auto;
+    max-width: 100vw;
+}
