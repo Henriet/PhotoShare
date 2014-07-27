@@ -12,11 +12,13 @@ namespace PhotoShare.Domain
             UserId = userId;
             Image = image;
             DateTime = DateTime.Now;
+            Comments = new List<Comment>();
         }
 
         public Photo()
         {
             DateTime = DateTime.Now;
+            Comments = new List<Comment>();
         }
 
         public Guid UserId { get; private set; }

@@ -11,7 +11,7 @@
         @foreach (var person in Model)
         {
             <li>
-                @Html.ActionLink(person.Name + " " + person.Surname, "UserProfile", "User", person.Name)
+                @Html.ActionLink(person.Name + " " + person.Surname, "UserProfile", "User", new { userName = person.Name}, null)
             </li>
         }
     </ul>

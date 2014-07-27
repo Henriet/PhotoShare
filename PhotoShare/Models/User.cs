@@ -24,6 +24,11 @@ namespace PhotoShare.Models
             ConfirmPassword = false;
         }
 
+        public User()
+        {
+            
+        }
+
         //public User(User user)
         //{
         //    var photos = new List<Photo>();

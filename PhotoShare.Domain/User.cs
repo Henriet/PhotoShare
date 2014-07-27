@@ -18,9 +18,15 @@ namespace PhotoShare.Domain
             Name = name;
             Surname = surname;
             Email = email;
+            Photos = new List<Photo>();
+            Friends = new List<User>();
         }
 
-        public User(){}
+        public User()
+        {
+            Photos = new List<Photo>();
+            Friends = new List<User>();
+        }
 
         
     }

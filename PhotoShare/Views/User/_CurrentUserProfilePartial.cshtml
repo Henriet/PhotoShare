@@ -1,0 +1,26 @@
+﻿@model PhotoShare.Domain.User
+
+@using (Html.BeginForm("UserProfile", "User", FormMethod.Post, new { enctype = "multipart/form-data"}))
+       {
+          <input type="hidden" name="Id" value=@Model.Id />
+           <button>Добавить новое изображение</button>
+    if(Model != null)
+    {
+        if(Model.Photos != null)
+        {
+            if (Model.Photos.Any())
+            {
+                foreach (var photo in Model.Photos)
+                {
+                    var base64 = Convert.ToBase64String(Model.Avatar);
+                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                    <img src="@imgSrc" id="photo"/>
+
+                    @Html.Label(photo.Description)
+                    <button>Delete</button>
+                }
+            }
+        }
+    }
+
+       } 

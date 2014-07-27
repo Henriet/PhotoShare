@@ -1,7 +1,32 @@
-﻿@{
-    ViewBag.Title = "UserProfile";
+﻿@model PhotoShare.Domain.User
+
+@{
+    ViewBag.Title = Model.Name;
 }
 
-@model PhotoShare.Domain.User
+@{ string name = HttpContext.Current.User.Identity.Name;}
 
-@Html.Label(Model.Name)
+@if (Model != null)
+{
+    string imgSrc;
+    if (Model.Avatar != null)
+    {
+        var base64 = Convert.ToBase64String(Model.Avatar);
+        imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+    }
+     else
+    {
+        imgSrc = "/Images/defaultAvatar.jpg";
+    }
+    <div >
+        <a href="@Url.Action("Index", "Home")">
+            <img src="@imgSrc" id="avatar"/>
+            <h2> @Html.Label(Model.Name + " " + Model.Surname)</h2>
+        </a>
+    </div>
+    
+    @(Model.Name == HttpContext.Current.User.Identity.Name ? Html.Partial("_CurrentUserProfilePartial", Model) : Html.Partial("_UserProfilePartial", Model))
+}
+
+
+

@@ -393,8 +393,9 @@
     <Content Include="Views\User\UserProfile.cshtml" />
     <Content Include="Views\Photo\AddPhoto.cshtml" />
     <Content Include="Views\Photo\AddPhotoStepTwo.cshtml" />
-    <Content Include="Views\Account\_ChangeAvatarPartial.cshtml" />
     <Content Include="Views\Account\ManageSuccess.cshtml" />
+    <Content Include="Views\User\_CurrentUserProfilePartial.cshtml" />
+    <Content Include="Views\User\_UserProfilePartial.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
