@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using DotNetOpenAuth.AspNet;
+using Microsoft.Ajax.Utilities;
 using Microsoft.Web.WebPages.OAuth;
 using PhotoShare.Domain;
 using PhotoShare.Filters;
@@ -178,13 +179,17 @@ namespace PhotoShare.Controllers
                 
                 userBl.UpdateUser(user);
             }
-            //todo error!!!!!!
+
 
 
 
             var hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             ViewBag.HasLocalPassword = hasLocalAccount;
             ViewBag.ReturnUrl = Url.Action("Manage");
+
+            if (Request.Form[1].IsNullOrWhiteSpace() || Request.Form[2].IsNullOrWhiteSpace() ||
+                     Request.Form[3].IsNullOrWhiteSpace()) return View(model);
+
             if (hasLocalAccount)
             {
                 if (!ModelState.IsValid) return View(model);
@@ -232,7 +237,6 @@ namespace PhotoShare.Controllers
                     }
                 }
             }
-
             // If we got this far, something failed, redisplay form
             return View(model);
         }
