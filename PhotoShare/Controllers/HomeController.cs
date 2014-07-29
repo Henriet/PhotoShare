@@ -1,6 +1,8 @@
 ﻿#region namespace
 
 using System;
+using System.IO;
+using System.Web;
 using System.Web.Mvc;
 using PhotoShare.Domain;
 using PhotoShare.LogicService;
@@ -35,13 +37,11 @@ namespace PhotoShare.Controllers
             return View();
         }
 
-        //public ActionResult Photo()
-        //{
-        //    var authorizedUser = _bl.GetUserByName(System.Web.HttpContext.Current.User.Identity.Name);
-        //    var user = new User(authorizedUser);
-
-        //    return View(user);
-        //}
+        public ActionResult Photo()
+        {
+            var user = _userBl.GetCurrentUser();
+            return View(user);
+        }
        
 
         
@@ -63,12 +63,12 @@ namespace PhotoShare.Controllers
         //        imageData = binaryReader.ReadBytes(file.ContentLength);
         //    }
         //    var user = _bl.GetUserByName(System.Web.HttpContext.Current.User.Identity.Name);
-            
+
         //    var photo = new Photo(user.Id, imageData);
         //    _bl.CreatePhoto(user.Id, photo.Image);
 
         //    //after successfully uploading redirect the user
-        //return RedirectToAction("Photo", "Home");
+        //    return RedirectToAction("Photo", "Home");
         //}
     }
 }

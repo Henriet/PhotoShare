@@ -396,6 +396,7 @@
     <Content Include="Views\Account\ManageSuccess.cshtml" />
     <Content Include="Views\User\_CurrentUserProfilePartial.cshtml" />
     <Content Include="Views\User\_UserProfilePartial.cshtml" />
+    <Content Include="Views\User\EditDescription.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

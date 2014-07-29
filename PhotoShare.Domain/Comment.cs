@@ -15,9 +15,10 @@ namespace PhotoShare.Domain
         public Comment()
         {}
         public string CommentText { get; set; }
-        public Guid CommentOwnerId { get; private set; }
+
+        public virtual Guid CommentOwnerId { get; private set; }
         public DateTime Date { get; private set; }
-        public Guid PhotoId { get; private set; }
+        public virtual Guid PhotoId { get; private set; }
     }
 }
 

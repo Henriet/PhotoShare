@@ -145,6 +145,18 @@ namespace PhotoShare.LogicService
             return _userRepository.Find(user => user.Name.Contains(searchString)).ToList();
         }
 
+        public bool IsFriend(Guid id)
+        {
+            var friend = _userRepository.Get(id);
+            var currentUserFriends = GetCurrentUser().Friends;
+            if (currentUserFriends.Contains(friend))
+                return true;
+            return false;
+        }
+
+
+
+
         public void GiveAdminRole(Guid id) //todo
         {
             

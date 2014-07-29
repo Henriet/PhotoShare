@@ -24,9 +24,7 @@
                     <nav>
                         <ul id="menu">
                             <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li>@Html.ActionLink("About", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                            <li>@Html.ActionLink("Add Photo", "AddPhoto", "Photo")</li>
+                            <li>@Html.ActionLink("UserProfile", "UserProfile", "User")</li>
                             <li>@Html.ActionLink("Photo Share", "PhotoShare", "Photo")</li>
                             
                            
@@ -53,4 +51,10 @@
         @Scripts.Render("~/bundles/jquery")
         @RenderSection("scripts", false)
     </body>
+    <footer>
+        @Html.ActionLink("Home", "Index", "Home")
+        @Html.ActionLink("About", "About", "Home")
+        @Html.ActionLink("Contact", "Contact", "Home")
+    </footer>
+
 </html>

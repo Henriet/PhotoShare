@@ -51,9 +51,10 @@ namespace PhotoShare.Controllers
                    imageData = DownloadImages(photoUrl);
                 }
             }
+            if (imageData == null) return RedirectToAction("AddPhotoStepTwo");
             if (!imageData.Any()) return RedirectToAction("AddPhotoStepTwo");
             var user = _userBl.GetCurrentUser();
-            var photo = new Models.Photo(user.Id, imageData);
+            var photo = new Models.Photo(user.Id, imageData) {Description = "  "};
 
             TempData["uploadPhoto"] = photo;
             return RedirectToAction("AddPhotoStepTwo");
@@ -83,7 +84,6 @@ namespace PhotoShare.Controllers
         [Authorize]
         public ActionResult AddPhotoStepTwo()
         {
-
             var photo =(Models.Photo) TempData["uploadPhoto"];
             photo.Description = " ";
             TempData["photo"] = photo;
@@ -94,7 +94,7 @@ namespace PhotoShare.Controllers
         [HttpPost]
         public ActionResult AddPhotoStepTwo(string description)
         {
-            var newDescription = Request.Form[0];
+           var newDescription = Request.Form[0];
            var photo = (Models.Photo) TempData["photo"];
            var uploadPhoto = new Photo(photo.UserId, photo.Image);
            if (!newDescription.IsNullOrWhiteSpace())

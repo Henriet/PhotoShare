@@ -23,9 +23,6 @@ namespace PhotoShare.LogicService
         {
             try
             {
-                var user = _userBl.GetUserById(photo.UserId);
-                user.Photos.Add(photo);
-                _userBl.UpdateUser(user);
                 return _photoRepository.Insert(photo);
             }
             catch (Exception)
@@ -38,10 +35,6 @@ namespace PhotoShare.LogicService
         {
             try
             {
-                var photo =_photoRepository.Get(id);
-                var user = _userBl.GetUserById(photo.UserId);
-                user.Photos.Remove(photo);
-                _userBl.UpdateUser(user);
                 return _photoRepository.Delete(id);
             }
             catch (Exception)

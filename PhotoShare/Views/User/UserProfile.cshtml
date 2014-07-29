@@ -18,13 +18,12 @@
     {
         imgSrc = "/Images/defaultAvatar.jpg";
     }
-    <div >
+    <p >
         <a href="@Url.Action("Index", "Home")">
             <img src="@imgSrc" id="avatar"/>
             <h2> @Html.Label(Model.Name + " " + Model.Surname)</h2>
         </a>
-    </div>
-    
+    </p>
     @(Model.Name == HttpContext.Current.User.Identity.Name ? Html.Partial("_CurrentUserProfilePartial", Model) : Html.Partial("_UserProfilePartial", Model))
 }
 

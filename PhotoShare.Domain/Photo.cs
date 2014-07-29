@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using PhotoShare.Domain;
 
 namespace PhotoShare.Domain
@@ -12,17 +13,17 @@ namespace PhotoShare.Domain
             UserId = userId;
             Image = image;
             DateTime = DateTime.Now;
-            Comments = new List<Comment>();
+            Description = " ";
         }
 
         public Photo()
-        {
-            DateTime = DateTime.Now;
-            Comments = new List<Comment>();
-        }
+        {}
+
 
         public Guid UserId { get; private set; }
-        public List<Comment> Comments { get; set; } 
+        public virtual User User { get; set; }
+
+        public virtual List<Comment> Comments { get; set; } 
         public byte[] Image { get; set; }
         [StringLength(255, ErrorMessage = "First name cannot be longer than 255 characters.")]
         public string Description { get; set; }

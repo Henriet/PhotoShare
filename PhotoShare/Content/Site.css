@@ -115,10 +115,13 @@ h5 a:link, h5 a:visited, h5 a:active {
 
 
 footer {
-    background-color: #e2e2e2;
+    background-color: #F5FFFA;
     clear: both;
-    font-size: .8em;
-    height: 100px;
+    font-size: 1.1em;
+    height: 40px;
+    padding-left: 15%;
+
+
 }
 
 
@@ -729,4 +732,25 @@ opacity:.85;
     max-height: 150px;
     width: auto;
     max-width: 150px;
+
+}
+
+
+#popupImage {
+    max-height: 45vh;
+    max-width: 60vw;
+    height: auto;
+    width: auto;
+}
+
+#profilePhoto {
+    max-width: 60vw;
+    height: auto;
+    max-height: 250px;
+}
+
+
+#photoForm {
+    border: 4px double #3b2113;
+    padding: 10px; 
 }
