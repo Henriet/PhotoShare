@@ -83,6 +83,20 @@ namespace PhotoShare.Controllers
             return RedirectToAction("UserProfile", "User", new { userName = friend.Name });
         }
 
+        [Authorize]
+        public ActionResult Friends()
+        {
+            var user = _userBl.GetCurrentUser();
+            return View(user);
+        }
+
+        //[Authorize]
+        //public ActionResult DeleteFriend(Guid id)
+        //{
+
+        //    return RedirectToAction("Friends", "User");
+        //}
+
 
     }
 }

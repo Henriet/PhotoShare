@@ -385,9 +385,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Home\Create.cshtml" />
     <Content Include="Views\Home\Photo.cshtml" />
-    <Content Include="Views\Home\FileUpload.cshtml" />
     <Content Include="Views\Photo\PhotoShare.cshtml" />
     <Content Include="Views\User\Search.cshtml" />
     <Content Include="Views\User\UserProfile.cshtml" />
@@ -397,6 +395,7 @@
     <Content Include="Views\User\_CurrentUserProfilePartial.cshtml" />
     <Content Include="Views\User\_UserProfilePartial.cshtml" />
     <Content Include="Views\User\EditDescription.cshtml" />
+    <Content Include="Views\User\Friends.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -12,14 +12,8 @@
     if (user.Friends != null)
     {
         <input type="hidden" name="Id" value=Model.Id />
-        if (!userBl.IsFriend(Model.Id))
-        {
-            @Html.ActionLink("Add friend", "AddFriend", "User", new {id = Model.Id}, null);
-        }
-        else
-        {
-            @Html.ActionLink("Delete friend", "DeleteFriend", "User", new {id = Model.Id}, null);
-        }
+        @(!userBl.IsFriend(Model.Id) ? Html.ActionLink("Add friend", "AddFriend", "User", new {id = Model.Id}, null) :
+        Html.ActionLink("Delete friend", "DeleteFriend", "User", new {id = Model.Id}, null))
     }
    
 }

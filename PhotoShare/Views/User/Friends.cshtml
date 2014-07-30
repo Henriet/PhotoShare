@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Friends";
+}
+
+@model PhotoShare.Domain.User
+<h2>Friends</h2>
+
+@if (!Model.Friends.Any())
+{
+    const string noFriends = "У Вас сейчас нет друзей :(";
+    @Html.Label(noFriends);
+}
+else
+{
+    foreach (var friend in Model.Friends)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(friend.Name, "UserProfile", "User", new{userName = friend.Name}, null)
+            </td>
+            
+            <td>
+                @Html.ActionLink("Delete friend", "DeleteFriend", "User", new {id = friend.Id}, null)
+            </td>
+        </tr>
+    }
+}

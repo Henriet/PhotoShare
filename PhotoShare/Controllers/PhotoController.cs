@@ -109,9 +109,19 @@ namespace PhotoShare.Controllers
         [Authorize]
         public ActionResult PhotoShare()
         {
-
-            return View();
+            var user = _userBl.GetCurrentUser();
+            var photos = user.Photos;
+            if (!user.Friends.Any()) return View(photos);
+            foreach (var friend in user.Friends.Where(friend => friend.Photos.Any()))
+            {
+                photos.AddRange(friend.Photos);
+            }
+            photos.Sort();
+            return View(photos);
         }
+
+
+
 
     }
 }

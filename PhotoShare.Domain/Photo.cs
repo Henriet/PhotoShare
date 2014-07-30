@@ -6,7 +6,7 @@ using PhotoShare.Domain;
 
 namespace PhotoShare.Domain
 {
-    public class Photo : Entity
+    public class Photo : Entity, IComparable<Photo>
     {
         public Photo(Guid userId, byte[] image)
         {
@@ -28,5 +28,12 @@ namespace PhotoShare.Domain
         [StringLength(255, ErrorMessage = "First name cannot be longer than 255 characters.")]
         public string Description { get; set; }
         public DateTime DateTime { get; private set; }
+
+        public int CompareTo(Photo photoToCompare)
+        {
+            if (DateTime > photoToCompare.DateTime)
+                return -1;
+            return DateTime < photoToCompare.DateTime ? 1 : 0;
+        }
     }
 }
