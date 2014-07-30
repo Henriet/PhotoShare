@@ -12,7 +12,8 @@
 }
 else
 {
-    foreach (var friend in Model.Friends)
+    <table>
+    @foreach (var friend in Model.Friends)
     {
         <tr>
             <td>
@@ -24,4 +25,5 @@ else
             </td>
         </tr>
     }
+        </table>
 }

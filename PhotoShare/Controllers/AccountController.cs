@@ -242,11 +242,7 @@ namespace PhotoShare.Controllers
         }
 
 
-        //[HttpPost]
-        //public ActionResult Manage(HttpPostedFileBase file)
-        //{
-        //    return View();
-        //}
+
 
         //
         // POST: /Account/ExternalLogin
@@ -453,5 +449,131 @@ namespace PhotoShare.Controllers
         }
 
         #endregion
+
+
+        //todo localization string:
+        private const string HaveNoAccess = "У вас нет прав для просмотра этой страницы";
+        //[Authorize(Roles = "admin")]
+        public ActionResult RoleCreate()
+        {
+            return User.IsInRole("admin") ? View() : View(HaveNoAccess);
+        }
+
+        //[Authorize(Roles = "Admin")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RoleCreate(string roleName)
+        {
+            if(!Roles.RoleExists(roleName))
+                 Roles.CreateRole(Request.Form["RoleName"]);
+            // ViewBag.ResultMessage = "Role created successfully !";
+
+            return RedirectToAction("RoleIndex", "Account");
+        }
+
+        //[Authorize(Roles = "Admin")]
+        public ActionResult RoleIndex()
+        {
+            var roles = Roles.GetAllRoles();
+            return View(roles);
+        }
+
+        public ActionResult RoleDelete(string roleName)
+        {
+
+            Roles.DeleteRole(roleName);
+            // ViewBag.ResultMessage = "Role deleted succesfully !";
+
+
+            return RedirectToAction("RoleIndex", "Account");
+        }
+
+        /// <summary>
+        /// Create a new role to the user
+        /// </summary>
+        /// <returns></returns>
+        //[Authorize(Roles = "Admin")]
+        public ActionResult RoleAddToUser()
+        {
+            var list = new SelectList(Roles.GetAllRoles());
+            ViewBag.Roles = list;
+
+            return View();
+        }
+
+        /// <summary>
+        /// Add role to the user
+        /// </summary>
+        /// <param name="roleName"></param>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        //[Authorize(Roles = "Admin")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RoleAddToUser(string roleName, string userName)
+        {
+
+            if (Roles.IsUserInRole(userName, roleName))
+            {
+                ViewBag.ResultMessage = "This user already has the role specified !";
+            }
+            else
+            {
+                Roles.AddUserToRole(userName, roleName);
+                ViewBag.ResultMessage = "Username added to the role succesfully !";
+            }
+
+            var list = new SelectList(Roles.GetAllRoles());
+            ViewBag.Roles = list;
+            return View();
+        }
+
+        /// <summary>
+        /// Get all the roles for a particular user
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        //[Authorize(Roles = "Admin")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult GetRoles(string userName)
+        {
+            if (string.IsNullOrWhiteSpace(userName)) return View("RoleAddToUser");
+            ViewBag.RolesForThisUser = Roles.GetRolesForUser(userName);
+            var list = new SelectList(Roles.GetAllRoles());
+            ViewBag.Roles = list;
+            return View("RoleAddToUser");
+        }
+
+        //[Authorize(Roles = "Admin")]
+
+        public ActionResult DeleteRoleForUser()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        //[Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteRoleForUser(string userName, string roleName)
+        {
+
+            if (Roles.IsUserInRole(userName, roleName))
+            {
+                Roles.RemoveUserFromRole(userName, roleName);
+                ViewBag.ResultMessage = "Role removed from this user successfully !";
+            }
+            else
+            {
+                ViewBag.ResultMessage = "This user doesn't belong to selected role.";
+            }
+            ViewBag.RolesForThisUser = Roles.GetRolesForUser(userName);
+            var list = new SelectList(Roles.GetAllRoles());
+            ViewBag.Roles = list;
+
+
+            return View("RoleAddToUser");
+        }
     }
 }

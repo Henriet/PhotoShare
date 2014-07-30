@@ -39,6 +39,7 @@ namespace PhotoShare.Controllers
         public ActionResult EditDescription(Guid id)
         {
             var photo = _photoBl.GetPhotoById(id);
+
             TempData["photo"] = photo;
             return View(photo);
         }
@@ -47,12 +48,28 @@ namespace PhotoShare.Controllers
         [HttpPost]
         public ActionResult EditDescription()
         {
-           var newDescription = Request.Form[0];
-           var tempDataPhoto = (Photo) TempData["photo"];
-            var photo = _photoBl.GetPhotoById(tempDataPhoto.Id);
-           photo.Description = newDescription;
-           _photoBl.UpdatePhoto(photo);
-            return RedirectToAction("UserProfile", "User", new {userName = _userBl.GetCurrentUser().Name});
+           if (!ModelState.IsValid) return RedirectToAction("UserProfile", "User", new {userName = _userBl.GetCurrentUser().Name});
+            try
+            {
+                var newDescription = Request.Form[0];
+                var tempDataPhoto = (Photo) TempData["photo"];
+                var size = newDescription.Length;
+                //if (size < 255)
+                //{
+                    var photo = _photoBl.GetPhotoById(tempDataPhoto.Id);
+                    photo.Description = newDescription;
+                    _photoBl.UpdatePhoto(photo);
+                //}
+                //else ()
+                return RedirectToAction("UserProfile", "User", new {userName = _userBl.GetCurrentUser().Name});
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError("", e.Message);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(ModelState);
         }
 
         [Authorize]
@@ -80,7 +97,8 @@ namespace PhotoShare.Controllers
             var friend = _userBl.GetUserById(id);
             currentUser.Friends.Remove(friend);
             _userBl.UpdateUser(currentUser);
-            return RedirectToAction("UserProfile", "User", new { userName = friend.Name });
+
+            return RedirectToAction("Friends", "User");
         }
 
         [Authorize]
@@ -90,12 +108,6 @@ namespace PhotoShare.Controllers
             return View(user);
         }
 
-        //[Authorize]
-        //public ActionResult DeleteFriend(Guid id)
-        //{
-
-        //    return RedirectToAction("Friends", "User");
-        //}
 
 
     }

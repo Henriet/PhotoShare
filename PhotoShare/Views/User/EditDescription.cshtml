@@ -3,12 +3,18 @@
     ViewBag.Title = "EditDescription";
 }
 
+
+
+
 @Html.Raw("<img class = 'preview' style='max-height: 50vh;max-width: 70vw;' src=\"data:image/jpeg;base64,"
                   + Convert.ToBase64String(Model.Image) + "\" />")
 
 
     @using (Html.BeginForm("EditDescription", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
+
+       @* @Html.AntiForgeryToken()*@
+        @Html.ValidationSummary()
         <div>
             @InputExtensions.TextBox(Html, Model.Description, "", new { PlaceHolder = "Описание"})
         </div>
@@ -16,3 +22,11 @@
             <input type="submit" value="Изменить описание">
         </div>
      }
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+

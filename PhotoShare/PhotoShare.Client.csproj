@@ -240,9 +240,9 @@
   <ItemGroup>
     <Content Include="App_Data\aspnet-PhotoShare-20140703223910_log.ldf" />
     <Content Include="App_Data\dbo.Table.sql" />
-    <Content Include="App_Data\PhotoShare.mdf" />
-    <Content Include="App_Data\PhotoShare_log.ldf">
-      <DependentUpon>PhotoShare.mdf</DependentUpon>
+    <Content Include="App_Data\PhotoShareDB.mdf" />
+    <Content Include="App_Data\PhotoShareDB_log.ldf">
+      <DependentUpon>PhotoShareDB.mdf</DependentUpon>
     </Content>
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
@@ -396,6 +396,10 @@
     <Content Include="Views\User\_UserProfilePartial.cshtml" />
     <Content Include="Views\User\EditDescription.cshtml" />
     <Content Include="Views\User\Friends.cshtml" />
+    <Content Include="Views\Account\RoleCreate.cshtml" />
+    <Content Include="Views\Account\RoleIndex.cshtml" />
+    <Content Include="Views\Account\RoleAddToUser.cshtml" />
+    <Content Include="Views\Account\DeleteRoleForUser.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

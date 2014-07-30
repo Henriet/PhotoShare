@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using PhotoShare.Domain;
 using PhotoShare.LogicService;
 
@@ -18,6 +19,7 @@ namespace PhotoShare.Controllers
 
         public ActionResult Index()
         {
+            var role = Roles.Enabled;
             var users = _userBl.GetAllUsers();
             return View();
         }
