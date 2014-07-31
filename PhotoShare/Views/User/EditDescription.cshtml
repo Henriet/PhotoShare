@@ -1,4 +1,4 @@
-﻿@using System.ComponentModel.DataAnnotations
+﻿@model PhotoShare.Domain.Photo
 @{
     ViewBag.Title = "EditDescription";
 }
@@ -10,13 +10,15 @@
                   + Convert.ToBase64String(Model.Image) + "\" />")
 
 
-    @using (Html.BeginForm("EditDescription", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("EditDescription", "Photo", FormMethod.Post))
     {
 
-       @* @Html.AntiForgeryToken()*@
-        @Html.ValidationSummary()
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => Model.Id)
         <div>
-            @InputExtensions.TextBox(Html, Model.Description, "", new { PlaceHolder = "Описание"})
+            @Html.EditorFor(p=>p.Description)
+            @Html.ValidationMessageFor(x => x.Description)
         </div>
         <div>
             <input type="submit" value="Изменить описание">

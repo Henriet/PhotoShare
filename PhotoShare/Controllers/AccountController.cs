@@ -29,7 +29,7 @@ namespace PhotoShare.Controllers
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
-        UserBl _userBl = new UserBl();
+        readonly UserBl _userBl = new UserBl();
        
 
         [AllowAnonymous]
@@ -451,19 +451,18 @@ namespace PhotoShare.Controllers
         #endregion
 
 
-        //todo localization string:
-        private const string HaveNoAccess = "У вас нет прав для просмотра этой страницы";
-        //[Authorize(Roles = "admin")]
+        
         public ActionResult RoleCreate()
         {
-            return User.IsInRole("admin") ? View() : View(HaveNoAccess);
+            return User.IsInRole("admin") ? (ActionResult) View() :  RedirectToAction("NoAccess", "Administrator");
         }
 
-        //[Authorize(Roles = "Admin")]
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult RoleCreate(string roleName)
         {
+            if(User.IsInRole("admin")) RedirectToAction("NoAccess", "Administrator");
             if(!Roles.RoleExists(roleName))
                  Roles.CreateRole(Request.Form["RoleName"]);
             // ViewBag.ResultMessage = "Role created successfully !";
@@ -471,18 +470,18 @@ namespace PhotoShare.Controllers
             return RedirectToAction("RoleIndex", "Account");
         }
 
-        //[Authorize(Roles = "Admin")]
         public ActionResult RoleIndex()
         {
+            if (User.IsInRole("admin")) RedirectToAction("NoAccess", "Administrator");
             var roles = Roles.GetAllRoles();
             return View(roles);
         }
 
         public ActionResult RoleDelete(string roleName)
         {
-
+            if (User.IsInRole("admin")) RedirectToAction("NoAccess", "Administrator");
             Roles.DeleteRole(roleName);
-            // ViewBag.ResultMessage = "Role deleted succesfully !";
+
 
 
             return RedirectToAction("RoleIndex", "Account");
@@ -492,9 +491,10 @@ namespace PhotoShare.Controllers
         /// Create a new role to the user
         /// </summary>
         /// <returns></returns>
-        //[Authorize(Roles = "Admin")]
+       
         public ActionResult RoleAddToUser()
         {
+            if (User.IsInRole("admin")) RedirectToAction("NoAccess", "Administrator");
             var list = new SelectList(Roles.GetAllRoles());
             ViewBag.Roles = list;
 
@@ -507,11 +507,12 @@ namespace PhotoShare.Controllers
         /// <param name="roleName"></param>
         /// <param name="userName"></param>
         /// <returns></returns>
-        //[Authorize(Roles = "Admin")]
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult RoleAddToUser(string roleName, string userName)
         {
+            if (User.IsInRole("admin")) RedirectToAction("NoAccess", "Administrator");
 
             if (Roles.IsUserInRole(userName, roleName))
             {
@@ -533,11 +534,12 @@ namespace PhotoShare.Controllers
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>
-        //[Authorize(Roles = "Admin")]
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult GetRoles(string userName)
         {
+            if (User.IsInRole("admin")) RedirectToAction("NoAccess", "Administrator");
             if (string.IsNullOrWhiteSpace(userName)) return View("RoleAddToUser");
             ViewBag.RolesForThisUser = Roles.GetRolesForUser(userName);
             var list = new SelectList(Roles.GetAllRoles());
@@ -545,20 +547,22 @@ namespace PhotoShare.Controllers
             return View("RoleAddToUser");
         }
 
-        //[Authorize(Roles = "Admin")]
+        
 
         public ActionResult DeleteRoleForUser()
         {
+            if (User.IsInRole("admin")) RedirectToAction("NoAccess", "Administrator");
+            var list = new SelectList(Roles.GetAllRoles());
+            ViewBag.Roles = list;
             return View();
         }
 
 
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteRoleForUser(string userName, string roleName)
         {
-
+            if (User.IsInRole("admin")) RedirectToAction("NoAccess", "Administrator");
             if (Roles.IsUserInRole(userName, roleName))
             {
                 Roles.RemoveUserFromRole(userName, roleName);

@@ -27,7 +27,10 @@
                             <li>@Html.ActionLink("UserProfile", "UserProfile", "User")</li>
                             <li>@Html.ActionLink("Friends", "Friends", "User")</li>
                             <li>@Html.ActionLink("Photo Share", "PhotoShare", "Photo")</li>
-                            <li>@Html.ActionLink("RoleCreate", "RoleCreate", "Account")</li>
+                      @*      @if (User.IsInRole("admin"))
+                            {
+                                *@<li>@Html.ActionLink("Administrator", "Index", "Administrator")</li>
+                            @*//}*@
                             
                            
                         </ul>

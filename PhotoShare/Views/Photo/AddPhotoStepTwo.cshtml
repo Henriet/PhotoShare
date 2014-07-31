@@ -10,11 +10,16 @@
                   + Convert.ToBase64String(Model.Image) + "\" />")
 
 
-    using (Html.BeginForm("AddPhotoStepTwo", "Photo", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    using (Html.BeginForm("AddPhotoStepTwo", "Photo", FormMethod.Post))
     {
+        
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
         <div>
-            @Html.TextBox(Model.Description, "", new { PlaceHolder = "Описание"})
-        </div>
+            @Html.HiddenFor(p => p.Image)
+            @Html.EditorFor(x => x.Description,new { PlaceHolderAttribute = "Description"})
+            @Html.ValidationMessageFor(x => x.Description)
+        </div>//todo placeholder
         <div>
             <input type="submit" value="Загрузить фото">
         </div>
@@ -29,4 +34,7 @@ else
     </h3>
 }
 
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
 

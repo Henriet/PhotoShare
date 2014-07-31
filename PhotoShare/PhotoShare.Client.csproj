@@ -211,6 +211,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdministratorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PhotoController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -400,6 +401,12 @@
     <Content Include="Views\Account\RoleIndex.cshtml" />
     <Content Include="Views\Account\RoleAddToUser.cshtml" />
     <Content Include="Views\Account\DeleteRoleForUser.cshtml" />
+    <Content Include="Views\User\_EditDescriptionPartial.cshtml" />
+    <Content Include="Views\Administrator\NoAccess.cshtml" />
+    <Content Include="Views\Administrator\Index.cshtml" />
+    <Content Include="Views\Administrator\Users.cshtml" />
+    <Content Include="Views\Administrator\Comments.cshtml" />
+    <Content Include="Views\Administrator\EditComment.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

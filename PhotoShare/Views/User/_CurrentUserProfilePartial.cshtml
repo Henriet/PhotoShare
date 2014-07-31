@@ -5,48 +5,43 @@
 <script type="text/javascript" src="~/Scripts/my_scripts.js"></script>
 
 
-@using (Html.BeginForm("UserProfile", "User", FormMethod.Post, new { enctype = "multipart/form-data"}))
+@using (Html.BeginForm("UserProfile", "User", FormMethod.Post))
        
 {
-           <div>
-               <p>
-                   <input type="hidden" name="Id" value=@Model.Id />
+    <div>
+        <p>
+            <input type="hidden" name="Id" value=@Model.Id />
                    
-                   <a href="@Url.Action("AddPhoto", "Photo")">
-                       <button> @Html.Label("Добавить новое изображение")</button>
-                   </a>
-               </p>
-           </div>
-    @Html.Label("Вы можете удалить фотографии или изменить описание")
+            <a href="@Url.Action("AddPhoto", "Photo")">
+                <button> @Html.Label("Добавить новое изображение")</button>
+            </a>
+        </p>
+    </div>
     
      if (Model != null)
       {
 
          if(Model != null)
-    {
+        {
         if(Model.Photos != null)
         {
             if (Model.Photos.Any())
             {
+                @Html.Label("Вы можете удалить фотографии или изменить описание")
                 foreach (var photo in Model.Photos)
                 {
-                    <form id="photoForm">
-                        
-                        @Html.Raw("<img class = 'preview' style='max-height: 20vh;max-width: 70vw;' " +
-                                  "src=\"data:image/jpeg;base64,"
-                                  + Convert.ToBase64String(photo.Image) + "\" />")
-                        <p>
-                            @Html.Label("Current desription: " + photo.Description)
-                            @Html.ActionLink("Edit description", "EditDescription", "User", new {id = photo.Id}, null)
-                            @Html.ActionLink("Delete", "DeleteImage", "User", new {id = photo.Id},null)
-                        </p>
-                    </form>
+                    @Html.Partial("_EditDescriptionPartial", photo)
                 }
             }
-}
-}
-}
+            else
+            {
+                 @Html.Label("У Вас сейчас нет фотографий")
+            }
+          }
+        }
     }
+}
+
 
     
 

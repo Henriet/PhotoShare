@@ -30,55 +30,19 @@ namespace PhotoShare.Controllers
         
         [Authorize]
         [HttpPost]
-        public ActionResult UserProfile(User user)
+        public ActionResult UserProfile(User user, Photo currentPhoto)
         {
             return RedirectToAction("UserProfile","User", new{ userName = _userBl.GetUserById(user.Id).Name});
         }
 
-        [Authorize]
-        public ActionResult EditDescription(Guid id)
-        {
-            var photo = _photoBl.GetPhotoById(id);
+        //[Authorize]
+        //public ActionResult EditDescription(Guid id)
+        //{
+        //    var photo = _photoBl.GetPhotoById(id);
+        //    return View(photo);
+        //}
 
-            TempData["photo"] = photo;
-            return View(photo);
-        }
-
-        [Authorize]
-        [HttpPost]
-        public ActionResult EditDescription()
-        {
-           if (!ModelState.IsValid) return RedirectToAction("UserProfile", "User", new {userName = _userBl.GetCurrentUser().Name});
-            try
-            {
-                var newDescription = Request.Form[0];
-                var tempDataPhoto = (Photo) TempData["photo"];
-                var size = newDescription.Length;
-                //if (size < 255)
-                //{
-                    var photo = _photoBl.GetPhotoById(tempDataPhoto.Id);
-                    photo.Description = newDescription;
-                    _photoBl.UpdatePhoto(photo);
-                //}
-                //else ()
-                return RedirectToAction("UserProfile", "User", new {userName = _userBl.GetCurrentUser().Name});
-            }
-            catch (Exception e)
-            {
-                ModelState.AddModelError("", e.Message);
-            }
-
-            // If we got this far, something failed, redisplay form
-            return View(ModelState);
-        }
-
-        [Authorize]
-        public ActionResult DeleteImage(Guid id)
-        {
-            _photoBl.DeletePhoto(id);
-            return RedirectToAction("UserProfile", "User", new { userName =  _userBl.GetCurrentUser().Name});
-        }
-
+       
         [Authorize]
         public ActionResult AddFriend(Guid id)
         {

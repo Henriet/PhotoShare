@@ -4,7 +4,6 @@
     ViewBag.Title = Model.Name;
 }
 
-@{ string name = HttpContext.Current.User.Identity.Name;}
 
 @if (Model != null)
 {
@@ -24,7 +23,7 @@
             <h2> @Html.Label(Model.Name + " " + Model.Surname)</h2>
         </a>
     </p>
-    @(Model.Name == HttpContext.Current.User.Identity.Name ? Html.Partial("_CurrentUserProfilePartial", Model) : Html.Partial("_UserProfilePartial", Model))
+    @((Model.Name == HttpContext.Current.User.Identity.Name || User.IsInRole("admin")) ? Html.Partial("_CurrentUserProfilePartial", Model) : Html.Partial("_UserProfilePartial", Model))
 }
 
 

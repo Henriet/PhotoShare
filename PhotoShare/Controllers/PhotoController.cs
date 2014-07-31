@@ -86,21 +86,16 @@ namespace PhotoShare.Controllers
         {
             var photo =(Models.Photo) TempData["uploadPhoto"];
             photo.Description = " ";
-            TempData["photo"] = photo;
             return View(photo);
         }
 
         [Authorize]
         [HttpPost]
-        public ActionResult AddPhotoStepTwo(string description)
+        public ActionResult AddPhotoStepTwo(Photo photo)
         {
-           var newDescription = Request.Form[0];
-           var photo = (Models.Photo) TempData["photo"];
-           var uploadPhoto = new Photo(photo.UserId, photo.Image);
-           if (!newDescription.IsNullOrWhiteSpace())
-               uploadPhoto.Description = newDescription;
-            _photoBl.CreatePhoto(uploadPhoto);
-
+            photo.UserId = _userBl.GetCurrentUser().Id;
+            photo.DateTime = DateTime.Now;
+            _photoBl.CreatePhoto(photo);
             return RedirectToAction("AddPhoto");
 
         }
@@ -119,6 +114,36 @@ namespace PhotoShare.Controllers
             photos.Sort();
             return View(photos);
         }
+
+
+        [Authorize]
+        public ActionResult EditDescription(Photo photo)
+        {
+            if (!ModelState.IsValid) return RedirectToAction("UserProfile", "User", new { userName = _userBl.GetCurrentUser().Name });
+            try
+            {
+                var _photo = _photoBl.GetPhotoById(photo.Id);
+                // photo.Description = description;
+                _photoBl.UpdatePhoto(photo);
+
+                return RedirectToAction("UserProfile", "User", new { userName = _userBl.GetCurrentUser().Name });
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError("", e.Message);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(ModelState);
+        }
+
+        [Authorize]
+        public ActionResult DeleteImage(Guid id)
+        {
+            _photoBl.DeletePhoto(id);
+            return RedirectToAction("UserProfile", "User", new { userName = _userBl.GetCurrentUser().Name });
+        }
+
 
 
 

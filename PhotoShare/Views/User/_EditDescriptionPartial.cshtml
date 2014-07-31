@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "_EditDescriptionPartial";
+}
+
+@model PhotoShare.Domain.Photo
+
+<form id="photoForm">
+                        
+    @Html.Raw("<img class = 'preview' style='max-height: 20vh;max-width: 70vw;' " +
+              "src=\"data:image/jpeg;base64,"
+              + Convert.ToBase64String(Model.Image) + "\" />")
+    <p>
+        @Html.Label("Current desription: ")
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div>
+            @Html.HiddenFor(x=>x.Id)
+            @Html.EditorFor(x => x.Description, new {PlaceHolderAttribute = "Description"})
+            @Html.ValidationMessageFor(x => Model.Description)
+        </div>
+        
+        @Html.ActionLink("Edit description", "EditDescription", "Photo", new{description = Model.Description})
+        @Html.ActionLink("Delete", "DeleteImage", "Photo", new {id = Model.Id}, null)
+    </p>
+</form>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

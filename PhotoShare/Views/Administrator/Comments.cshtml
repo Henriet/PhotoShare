@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Comments";
+}
+
+@model List<PhotoShare.Domain.Comment>
+<h2>Comments</h2>
+
+@if (Model != null)
+{
+    if (Model.Any())
+    {
+        <table>
+            @foreach (var comment in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.Label(comment.CommentText)
+                    </td>
+                    <td>
+                        @Html.ActionLink(comment.CommentOwner.Name + " " + comment.CommentOwner.Surname, "UserProfile", "User", new { userName = comment.CommentOwner.Name}, null)
+                    </td>
+                    <td>
+                        @Html.Label(comment.Date.ToString())
+                    </td>
+                    <td>
+                        @Html.ActionLink("Delete Comment", "DeleteComment", "Administrator", new{id = comment.Id}, null)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit Comment", "EditComment", "Administrator", new{id = comment.Id}, null)
+                    </td>
+
+                </tr>
+            }
+        </table>
+    }
+}
+
+
+

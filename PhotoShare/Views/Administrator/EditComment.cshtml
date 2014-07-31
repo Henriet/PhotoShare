@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "EditComment";
+}
+
+@model PhotoShare.Domain.Comment
+<h2>EditComment</h2>
+
+ @using (Html.BeginForm("Edit Comment", "EditComment", FormMethod.Post))
+    {
+        
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div>
+            @Html.HiddenFor(m=>m.Id)
+            @Html.EditorFor(x => x.CommentText,new { PlaceHolderAttribute = "Comment"})
+        </div>
+        <div>
+            <input type="submit" value="Edit comment">
+        </div>
+     }
